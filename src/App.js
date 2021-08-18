@@ -1,25 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
 
-function App() {
+import {Counter} from './Counter';
+import {Edad} from './Edad';
+import {Persona} from './Persona';
+import './app.style.css'
+
+
+
+export const App = ()=>{
+
+  const nameValue = 'pepe'
+  const ageValue = 15
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+    <h2 style={{backgroundColor:'red', fontSize:40, paddind: '20px 20px 20px 20px'}}>Hello world</h2>
+
+    {/* <Persona nameProp={nameValue} ageProp={ageValue} cualquierCosa ={'cualquier Valor'}/>
+    */}
+
+    <Edad edad={30}/>   
+    <Counter/>
+  
+    </>
+   )
 }
 
-export default App;
+
+
+
