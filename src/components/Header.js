@@ -15,7 +15,10 @@ export const Header = () => {
               </Nav.Link>    
               <Nav.Link>              
                 <NavLink exact activeClassName="active" to='/login'>Login</NavLink>
-              </Nav.Link>        
+              </Nav.Link> 
+              <Nav.Link>              
+                <NavLink exact activeClassName="active" to='/register'>Register</NavLink>
+              </Nav.Link>         
             </Nav>
           </Container>
       </Navbar>

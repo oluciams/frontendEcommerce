@@ -10,6 +10,7 @@ import { Header } from '../components/Header';
 import { Home } from '../pages/Home';
 import {Footer} from '../components/Footer';
 import { Login } from '../pages/Login';
+import { Register } from '../pages/Register';
 
   
   export const AppRoutes = () => {
@@ -18,9 +19,10 @@ import { Login } from '../pages/Login';
         <div>
             <Header/>            
             <Switch>
-              <Route exact path="/login">
-                <Login/>
+              <Route exact path={"/login"}>
+                <Login/>                
               </Route>
+              <Route exact path={"/register"} component={Register}/>          
               <Route exact path={"/"}>
                 <Home/>
               </Route>
