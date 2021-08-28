@@ -5,7 +5,7 @@ export const Footer = () => {
    
     return (
         <>
-        <Navbar bg="dark">
+        <Navbar bg="light">
             <Container>
             <Navbar.Brand>Footer</Navbar.Brand>
             </Container>
