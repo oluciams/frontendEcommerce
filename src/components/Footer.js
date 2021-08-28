@@ -4,12 +4,13 @@ import { Navbar} from 'react-bootstrap';
 export const Footer = () => {
    
     return (
-    <>
-        <Navbar bg="secondary">
+        <>
+        <Navbar bg="dark">
             <Container>
-            <Navbar.Brand href="#home">Footer</Navbar.Brand>
+            <Navbar.Brand>Footer</Navbar.Brand>
             </Container>
-        </Navbar>
-    </>
+        </Navbar>    
+  </>
+    
     )
 }

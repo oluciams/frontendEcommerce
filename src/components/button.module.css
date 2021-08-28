@@ -1,11 +1,17 @@
 .primary{
-    background-color: cyan;    
+    background-color: cyan; 
+    height: 2rem;
+    width: 6rem;      
     border-radius: 5px;
-    padding: 10px;
+    padding: 4px;
+    font-size: 12px;
 }
 
 .secondary{
-    background-color:rgb(56, 121, 206);  
+    background-color:rgb(56, 121, 206); 
+    width: 6rem; 
     border-radius: 5px;
-    padding: 10px;     
+    padding: 4px; 
+    font-size: 16px; 
+   
 }

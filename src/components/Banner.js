@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Row} from 'react-bootstrap';
+import { Row } from 'react-bootstrap';
 import { Cards } from './Cards';
 
 
@@ -10,6 +10,7 @@ export const Banner = () => {
     useEffect(() => {
         console.log('Ejecuta use effect')
         fetch(`http://localhost:3001/products`)
+        //fetch(`http://localhost:3001/products?category=6122bf53c74c252ae0c41ca7`)
             .then(response => response.json())
             .then(data => {
                 console.log('ejecucion del fetch')
@@ -22,7 +23,7 @@ export const Banner = () => {
 
     return (
         <div> 
-        <Row>                 
+        <Row>                           
             {
                 products.map(({ id, title, value, image }) => 
                 <Cards
@@ -32,7 +33,7 @@ export const Banner = () => {
                  cardImage={image}
                  variant={'primary'} text={'Ver más'} color='blue'
                 />)
-            }
+            }            
          </Row> 
         </div>
     )

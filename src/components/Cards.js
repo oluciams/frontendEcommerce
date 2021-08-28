@@ -1,5 +1,8 @@
-import { Card } from 'react-bootstrap';
+import React from 'react';
 import { Button as Btn } from './Button';
+
+
+
 
 export const Cards = ({
     cardKey,
@@ -10,14 +13,16 @@ export const Cards = ({
     variant,
     color }) => {
     return (
-        <Card key={cardKey} style={{ width: '18rem' }}>
-        <Card.Img variant="top" src={cardImage} />
-        <Card.Body>
-            <Card.Title>{cardTitle}</Card.Title>
-            <Card.Text>{cardValue}</Card.Text>
-            <Btn variant={variant} text={text} color={color} />             
-        </Card.Body>
-        </Card>
+               
+    <div className="card mx-auto my-3" key={cardKey} style={{ width: '12rem' }}>
+      <img src={cardImage} className="card-img-top" alt=""></img>
+      <div className="card-body">
+        <h5 className="card-title">{cardTitle}</h5>
+        <p className="card-text">{cardValue}</p>
+        <Btn variant={variant} text={text} color={color} />  
+      </div>
+    </div>
     )
+
 }
 
