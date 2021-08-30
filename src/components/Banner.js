@@ -19,8 +19,6 @@ export const Banner = () => {
             .catch(err => console.log(err))
     }, [])
 
-
-
     return (
         <div> 
         <Row>                           
