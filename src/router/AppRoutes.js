@@ -11,6 +11,7 @@ import { Home } from '../pages/Home';
 import {Footer} from '../components/Footer';
 import { Login } from '../pages/Login';
 import { Register } from '../pages/Register';
+import { NotFound } from '../pages/NotFound';
 
   
   export const AppRoutes = () => {
@@ -26,6 +27,7 @@ import { Register } from '../pages/Register';
               <Route exact path={"/"}>
                 <Home/>
               </Route>
+              <Route path='*' component={NotFound} />
             </Switch>
             <Footer/>
         </div>

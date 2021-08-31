@@ -100,7 +100,7 @@ export const FormComponent = ({ saveFormData }) => {
           <Form.Group className="mb-2 col-sm-6 mx-auto" controlId="">        
             <Form.Control
              size="sm"
-             type="texto"
+             type="text"
              placeholder="profilePicture" 
              value={profilePicture}
 					   onChange={handleProfilePicture}            

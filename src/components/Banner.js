@@ -3,6 +3,7 @@ import { Row } from 'react-bootstrap';
 import { Cards } from './Cards';
 
 
+
 export const Banner = () => {
 
     const [products, setProducts] = useState([]);
@@ -17,10 +18,10 @@ export const Banner = () => {
                 setProducts(data)   
             })
             .catch(err => console.log(err))
-    }, [])
+    }, [])    
 
     return (
-        <div> 
+        <div>         
         <Row>                           
             {
                 products.map(({ id, title, value, image }) => 
@@ -29,8 +30,8 @@ export const Banner = () => {
                  cardTitle={title}
                  cardValue={value}
                  cardImage={image}
-                 variant={'primary'} text={'Ver más'} color='blue'
-                />)
+                 variant={'primary'} text={'Ver más'} color='blue'/>
+                )
             }            
          </Row> 
         </div>
