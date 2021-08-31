@@ -6,7 +6,8 @@ export const Home = () => {
    
 return (
     <>
-      <Container fluid>               
+      <Container fluid> 
+      Productos              
            <Banner/>                       
       </Container>     
     </>

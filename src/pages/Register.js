@@ -28,8 +28,8 @@ export const Register = () => {
   
   return (  
 
-    <Container className="mt-4"> 
-        <h3 className="text-center">Register</h3>
+    <Container className="mt-2"> 
+        <p className="text-center">Sign Up!</p>
         <FormComponent saveFormData={saveFormData} />    
     </Container>   
       

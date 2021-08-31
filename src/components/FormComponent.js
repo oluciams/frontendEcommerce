@@ -108,7 +108,7 @@ export const FormComponent = ({ saveFormData }) => {
           </Form.Group>
           <Form.Group className="mb-2 col-sm-6 mx-auto"> 
           <Button size="sm" variant="primary" type="submit">
-            Submit
+            Sign Up
           </Button>      
           </Form.Group>
         </Form>      
