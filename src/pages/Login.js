@@ -14,17 +14,18 @@ export const Login = () => {
     const data= {email, password}
     setUser(data)   
   }
+  
 
   useEffect(async () => {
-    await axios.post('http://localhost:3001/login', user)
-    .then(function (response) {      
-      console.log(response);
+     
+    try {
+      const apiData= await axios.post('http://localhost:3001/login', user)
+      // console.log(apiData.message);
+    } catch (error) {
+      const {message} = error.response.data
+      console.log(message);
       
-    })
-    .catch(function (error) {     
-      console.log(error);
-
-    });       
+    }          
     
   }, [user]);
    
