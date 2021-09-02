@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Form, Button, Container} from 'react-bootstrap';
+import { AuthContext } from '../context/AuthContextProvider';
 
-export const FormLogin = ({saveFormData})=>{
 
+export const FormLogin = ()=>{
+
+  const {saveFormData, userToken} = useContext(AuthContext)
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -24,6 +27,7 @@ export const FormLogin = ({saveFormData})=>{
 	}
 
   return (
+    
   <Container className="mt-2"> 
     <Form onSubmit={handleOnSubmit}>  
       <Form.Group className="mb-2 col-sm-6 mx-auto">        
@@ -50,6 +54,7 @@ export const FormLogin = ({saveFormData})=>{
         </Button>      
       </Form.Group>
     </Form> 
+    <h1>{userToken}</h1>    
   </Container>  
 
   )

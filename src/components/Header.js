@@ -1,6 +1,6 @@
 import { Container} from 'react-bootstrap';
 import { Navbar, Nav} from 'react-bootstrap';
-import { NavLink } from 'react-router-dom'
+import { NavLink, Link} from 'react-router-dom'
 
 export const Header = () => {
    
@@ -18,7 +18,10 @@ export const Header = () => {
               </Nav.Link> 
               <Nav.Link>              
                 <NavLink exact activeClassName="active" to='/register'>Register</NavLink>
-              </Nav.Link>         
+              </Nav.Link> 
+              {/* <Link to='/acerca'>Acerca</Link>
+              <Link to='/products'>Productos</Link>
+              <Link to= '/dashboard'>Dashboard</Link>        */}
             </Nav>
           </Container>
       </Navbar>
