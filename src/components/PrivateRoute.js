@@ -1,16 +1,13 @@
 import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
 
-//simulando autenticacion
-let auth;
- auth=null;    // en esta parte se puede colocar la logica de mi autenticacion
- auth=true;
 
-export const PrivateRoute = ({component: Component, ...rest})=>{
+export const PrivateRoute = ({component: Component, userToken, ...rest})=>{
 
   return(
-
-    <Route {...rest}>{auth? <Component/>:<Redirect to='/login'/>}</Route>    
+    <Route {...rest} render ={props => (
+      userToken ? <Component {...props }/> : <Redirect to='/login'/>
+    )}/>    
   )
 }
 

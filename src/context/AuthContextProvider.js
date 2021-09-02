@@ -31,8 +31,6 @@ export const AuthContextProvider = ({ children }) => {
     }          
     
   }, [user]);
-
-
   
   const value = {
     saveFormData,

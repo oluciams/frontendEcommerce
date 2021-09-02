@@ -19,6 +19,9 @@ export const Header = () => {
               <Nav.Link>              
                 <NavLink exact activeClassName="active" to='/register'>Register</NavLink>
               </Nav.Link> 
+                <Nav.Link>              
+                <NavLink activeClassName="active" to='/products'>Products</NavLink>
+              </Nav.Link> 
               {/* <Link to='/acerca'>Acerca</Link>
               <Link to='/products'>Productos</Link>
               <Link to= '/dashboard'>Dashboard</Link>        */}
