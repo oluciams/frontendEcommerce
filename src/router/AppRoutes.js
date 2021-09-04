@@ -13,15 +13,15 @@ import { Login } from '../pages/Login';
 import { Register } from '../pages/Register';
 import { NotFound } from '../pages/NotFound';
 import { PrivateRoute } from '../components/PrivateRoute';
-import { Dashboard } from '../components/Dashboard';
 import { Banner } from '../components/Banner';
 import { Products } from '../pages/Products';
 import { AuthContext } from '../context/AuthContextProvider';
+import { Logout } from '../components/Logout';
 
   
   export const AppRoutes = () => {
 
-    const {userToken} = useContext(AuthContext)
+    const {userToken,logout } = useContext(AuthContext)
 
     return (
      
@@ -32,10 +32,10 @@ import { AuthContext } from '../context/AuthContextProvider';
               <Route path="/" exact component={Home} /> 
               <Route path="/login" component={Login} />
               <Route path="/register" component={Register} />
-              <PrivateRoute exact path='/products' component={Products} userToken={userToken}/>               
+              <PrivateRoute exact path='/products' component={Products} userToken={userToken}/>
+              <Route path="/logout" component={Logout} logout={logout}  />               
               {/* <Route path="/products" component={Products} />  */}
-              <Route path='*' component={NotFound}/>
-              {/* <PrivateRoute exact path='/deshboard' component={Dashboard}/>*/}
+              <Route path='*' component={NotFound}/>             
               {/* <Route path='/products' component={Banner}/> */}
             </Switch>
             <Footer/>
