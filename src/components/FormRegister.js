@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { Form, Button, Container} from 'react-bootstrap';
 
-export const FormComponent = ({ saveFormData }) => {
+export const FormRegister = ({ saveFormData }) => {
 
   const [name, setName] = useState('');
   const [lastname, setLastname] = useState('');

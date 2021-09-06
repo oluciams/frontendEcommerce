@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { FormComponent} from '../components/FormComponent';
+import { FormRegister} from '../components/FormRegister';
 import { Container} from 'react-bootstrap';
 
 
@@ -30,7 +30,7 @@ export const Register = () => {
 
     <Container className="mt-2"> 
         <p className="text-center">Sign Up!</p>
-        <FormComponent saveFormData={saveFormData} />    
+        <FormRegister saveFormData={saveFormData} />    
     </Container>   
       
   )

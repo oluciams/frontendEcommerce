@@ -1,5 +1,6 @@
 import {createContext, useState, useEffect} from 'react';
-const axios = require ('axios').default;
+import {loginApi} from '../utils/api'
+
 
 
 export const AuthContext = createContext();
@@ -19,7 +20,7 @@ export const AuthContextProvider = ({ children }) => {
 
   useEffect(async () => {     
     try {
-      const apiData= await axios.post('http://localhost:3001/login', user)
+      const apiData= await loginApi.post('/login', user)
       const {data} = apiData
       console.log('token api')
       console.log(data.token);
@@ -27,8 +28,8 @@ export const AuthContextProvider = ({ children }) => {
       localStorage.setItem('token', data.token);
   
     } catch (error) {
-      const {message} = error.response.data
-      console.log(message);      
+      // const {message} = error.response.data
+      console.log(error);      
     }          
     
   }, [user]);
@@ -38,16 +39,16 @@ export const AuthContextProvider = ({ children }) => {
     setUserToken(token)
   }, []);
 
-  const logout= ()=> {
-    localStorage.clear('token')
-    setUserToken(false)
+  // const logout= ()=> {
+  //   localStorage.clear('token')
+  //   setUserToken(false)
 
-  }
+  // }
   
   const value = {
     saveFormData,
     userToken,
-    logout
+    
   }
 
   
