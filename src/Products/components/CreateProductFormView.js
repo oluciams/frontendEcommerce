@@ -55,22 +55,22 @@ export const CreateProductFormView = ({
               value={image}
 					    onChange={handleImage}       
               name='image'/>
-          </Form.Group>          
+          </Form.Group>      
+
           <Form.Group className="mb-2 col-sm-6 mx-auto"> 
             <Form.Select
-              aria-label="Default select example"
-              defaultValue =''
+              aria-label="Default select example"              
               size="sm"
               type="text"                          
               value={categoryId}
 					    onChange={handleCategoryId}             
               name='categoryId'> 
-              <option >- - -</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option> 
+              <option >- - - - - -</option>
+              <option value="6122a71e68e2cb238f24eaf8">Ferreteria</option>
+              <option value="6122bf53c74c252ae0c41ca7">Electro</option>               
             </Form.Select>           
-          </Form.Group>
+          </Form.Group>     
+
           <Form.Group className="mb-2 col-sm-6 mx-auto">        
             <Form.Control
              size="sm"

@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
-
-
+import React, { useState, useContext} from 'react';
+import { ProductsContext } from '../../context/ProductsContext';
 import {CreateProductFormView} from '../components/CreateProductFormView';
 
-export const CreateProductFormContainer = ({saveFormData})=>{
+
+export const CreateProductFormContainer = ()=>{
+
+  const {createProduct} =useContext(ProductsContext)
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -38,17 +40,20 @@ export const CreateProductFormContainer = ({saveFormData})=>{
 
   const handleOnSubmit = (e) => {
 		e.preventDefault()
+
     if (title && description && value && image && categoryId && quantity ) {
-			saveFormData(title, description, value, image, categoryId, quantity);
-      setTitle('');
-			setDescription('');
-      setValue('');
-      setImage('')
-      setCategoryId('')	
-      setQuantity('')		
-		}
+      createProduct({title, description, value, image, categoryId, quantity})
+    }
+
+    setTitle('');
+    setDescription('');
+    setValue('');
+    setImage('')
+    setCategoryId('')	
+    setQuantity('')			
   };
-    
+
+     
   return (  
       <CreateProductFormView
            title={title}
@@ -62,7 +67,7 @@ export const CreateProductFormContainer = ({saveFormData})=>{
            handleDescription={handleDescription}
            handleValue={handleValue}
            handleImage={handleImage}
-           handleCategory={handleCategoryId}
+           handleCategoryId={handleCategoryId}
            handleQuantity={handleQuantity}
       />  
   )
