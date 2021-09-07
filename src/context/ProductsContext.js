@@ -1,7 +1,9 @@
 import { createContext, useEffect, useState } from 'react';
 import {productsApi} from '../utils/api'
 
+
 export const ProductsContext = createContext();
+
 
 export const ProductsContextProvider = ({children})=>{
 
@@ -17,14 +19,31 @@ export const ProductsContextProvider = ({children})=>{
     setProducts([...products, data])
   }
 
+  const deleteProduct = async (id)=>{    
+    console.log("este es el id",id)
+    const newProducts = products.filter((product)=> product._id !== id)
+    setProducts(newProducts)
+
+    setTimeout(async() =>{
+      const {status} = await productsApi.delete(`/products/${id}`)           
+      if (status ===400){
+        fetchData()
+      }
+    }, 10000)
+  }
+
+  const editProduct = 
+
+
   useEffect(() => {
     fetchData()    
   }, []);
 
   const value ={
     products,    
-    createProduct
-
+    createProduct,
+    deleteProduct,
+    editProduct
   }
 
   return (

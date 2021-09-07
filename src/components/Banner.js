@@ -7,7 +7,7 @@ import { Cards } from './Cards';
 
 export const Banner = () => {
 
-   const {products} = useContext(ProductsContext)
+   const {products, deleteProduct} = useContext(ProductsContext)
 
    if(!products) return <h3>Loading . . . </h3>
 
@@ -15,13 +15,16 @@ export const Banner = () => {
         <Row>                           
             {
                 // products &&
-                products.map(({ id, title, value, image }) => 
+                products.map(({ _id, title, value, image }) =>           
+                
                 <Cards
-                 cardKey={id}
+                 cardKey={_id}
+                 id={_id}
                  cardTitle={title}
                  cardValue={value}
                  cardImage={image}
-                 variant={'primary'} text={'Ver más'} color='blue'/>
+                 variant={'primary'} text={'Ver más'} color='blue'
+                 deleteProduct={deleteProduct}/>               
                 )
             }            
          </Row> 
