@@ -1,29 +1,20 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Row } from 'react-bootstrap';
+import { ProductsContext } from '../context/ProductsContext';
 import { Cards } from './Cards';
 
 
 
 export const Banner = () => {
 
-    const [products, setProducts] = useState([]);
+   const {products} = useContext(ProductsContext)
 
-    useEffect(() => {
-        console.log('Ejecuta use effect')
-        fetch(`http://localhost:3001/products`)
-        //fetch(`http://localhost:3001/products?category=6122bf53c74c252ae0c41ca7`)
-            .then(response => response.json())
-            .then(data => {
-                console.log('ejecucion del fetch')
-                setProducts(data)   
-            })
-            .catch(err => console.log(err))
-    }, [])    
+   if(!products) return <h3>Loading . . . </h3>
 
-    return (
-        <div>         
+    return (                
         <Row>                           
             {
+                // products &&
                 products.map(({ id, title, value, image }) => 
                 <Cards
                  cardKey={id}
@@ -34,6 +25,6 @@ export const Banner = () => {
                 )
             }            
          </Row> 
-        </div>
+        
     )
 }
