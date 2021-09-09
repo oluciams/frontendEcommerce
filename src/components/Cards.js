@@ -6,17 +6,18 @@ import { Button } from 'react-bootstrap';
 
 
 export const Cards = ({
-    id,
     cardKey,
+    id,
     cardTitle,
     cardValue,
-    cardImage,
-    text,
+    cardImage,    
     variant,
+    text,
     color,
-    deleteProduct
-    
+    deleteProduct, 
+    editProduct    
    }) => {
+     
     return (
                
     <div className="card mx-auto my-3" key={cardKey} style={{ width: '12rem' }}>
@@ -31,8 +32,8 @@ export const Cards = ({
         <p>Id es {id}</p>            
         <Btn variant={variant} text={text} color={color} />
         <div className="mt-2">
-          <Button variant='danger' size='sm'onClick={()=>deleteProduct(id)}>Delete</Button>          
-          <Button className="m-2" variant='primary' size='sm' >Edit</Button>      
+          <Button variant='danger'size='sm'onClick={()=>deleteProduct(id)}>Delete</Button>          
+          <Button className="m-2" variant='primary' size='sm' onClick={()=>editProduct(id)}>Edit</Button>      
         </div>  
       </div>
     </div>
@@ -40,5 +41,3 @@ export const Cards = ({
 
 }
 
-
-// onClick={()=>editProduct()}

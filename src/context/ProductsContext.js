@@ -29,11 +29,50 @@ export const ProductsContextProvider = ({children})=>{
       if (status ===400){
         fetchData()
       }
-    }, 10000)
+    }, 3000)
   }
 
-  const editProduct = 
+  const updateProduct = async (
+    id,{
+    title: titleEdited,
+    description: descriptionEdited,
+    value: valueEdited,
+    image:imageEdited,
+    categoryId: categoryIdEdited,
+    quantity: quantityEdited})=>{
 
+      const newProducts = products.map((product)=>{
+        if(product.id === id){
+          return {... product,
+            title: titleEdited,
+            description: descriptionEdited,
+            value: valueEdited,
+            image:imageEdited,
+            categoryId: categoryIdEdited,
+            quantity: quantityEdited}
+
+        } else{
+          return product
+        }
+
+      })
+
+      setProducts(newProducts)
+
+      setTimeout(async ()=>{
+        const {status} = await productsApi.put(`/products/${id}`, {
+          title: titleEdited,
+          description: descriptionEdited,
+          value: valueEdited,
+          image:imageEdited,
+          categoryId: categoryIdEdited,
+          quantity: quantityEdited, status: false})
+          
+          if (status === 400){
+            fetchData()
+          }
+      }, 3000)
+  }
 
   useEffect(() => {
     fetchData()    
@@ -43,7 +82,7 @@ export const ProductsContextProvider = ({children})=>{
     products,    
     createProduct,
     deleteProduct,
-    editProduct
+    updateProduct
   }
 
   return (
