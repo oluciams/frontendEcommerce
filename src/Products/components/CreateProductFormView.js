@@ -6,13 +6,13 @@ export const CreateProductFormView = ({
     description,
     value,
     image,
-    categoryId, 
+    category, 
     quantity,    
     handleTitle,
     handleDescription,
     handleValue,
     handleImage,
-    handleCategoryId,
+    handleCategory,
     handleQuantity,   
     handleOnSubmit
 
@@ -62,9 +62,9 @@ export const CreateProductFormView = ({
               aria-label="Default select example"              
               size="sm"
               type="text"                          
-              value={categoryId}
-					    onChange={handleCategoryId}             
-              name='categoryId'> 
+              value={category}
+					    onChange={handleCategory}             
+              name='category'> 
               <option >- - - - - -</option>
               <option value="6122a71e68e2cb238f24eaf8">Ferreteria</option>
               <option value="6122bf53c74c252ae0c41ca7">Electro</option>               

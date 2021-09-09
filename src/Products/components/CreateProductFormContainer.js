@@ -5,7 +5,6 @@ import {CreateProductFormView} from '../components/CreateProductFormView';
 
 
 export const CreateProductFormContainer = ({product})=>{
-  console.log("producto desde container", product)
 
   const {createProduct, updateProduct} =useContext(ProductsContext)
 
@@ -13,7 +12,7 @@ export const CreateProductFormContainer = ({product})=>{
   const [description, setDescription] = useState('');
   const [value, setValue] = useState('');
   const [image, setImage] = useState('');
-  const [categoryId, setCategoryId] = useState('');
+  const [category, setCategory] = useState('');
   const [quantity, setQuantity] = useState('');
   const [editMode, setEditMode] = useState(false);
 
@@ -33,8 +32,8 @@ export const CreateProductFormContainer = ({product})=>{
     setImage(e.target.value)
   }
 
-  const handleCategoryId= (e)=>{
-    setCategoryId(e.target.value)
+  const handleCategory= (e)=>{
+    setCategory(e.target.value)
   }
 
   const handleQuantity= (e)=>{
@@ -43,21 +42,21 @@ export const CreateProductFormContainer = ({product})=>{
 
   const handleOnSubmit = (e) => {
 		e.preventDefault()
-    if (title && description && value && image && categoryId && quantity ) {
-      if(editMode){
-        console.log("id en handleSubmit", product.id)
-        updateProduct(product.id, ({
-          title, description, value, image, categoryId, quantity}))
+    if (title && description && value && image && category && quantity ) {
+      if(editMode){       
+   
+        updateProduct(product._id, ({        
+          title, description, value, image, categoryId: category, quantity}))
           setEditMode(false)
-      } else {
-        createProduct({title, description, value, image, categoryId, quantity})
+      } else {       
+        createProduct({title, description, value, image, categoryId: category, quantity})
       }      
     
     setTitle('');
     setDescription('');
     setValue('');
     setImage('')
-    setCategoryId('')	
+    setCategory('')	
     setQuantity('')
 
     };
@@ -69,14 +68,14 @@ export const CreateProductFormContainer = ({product})=>{
          product.description &&
          product.value &&
          product.image &&
-         product.categoryId &&
-         product.quantity){
+         product.category &&
+         product.quantity){      
 
       setTitle(product.title);
       setDescription(product.description);
       setValue(product.value);
       setImage(product.image)
-      setCategoryId(product.categoryId)	
+      setCategory(product.category)	
       setQuantity(product.quantity)
       setEditMode(true)
       }
@@ -87,18 +86,19 @@ export const CreateProductFormContainer = ({product})=>{
   return (  
      
         <CreateProductFormView
+
             title={title}
             description={description}
             value={value}
             image={image}
-            categoryId={categoryId}
+            category={category}
             quantity={quantity}
             handleOnSubmit={handleOnSubmit}     
             handleTitle={handleTitle}
             handleDescription={handleDescription}
             handleValue={handleValue}
             handleImage={handleImage}
-            handleCategoryId={handleCategoryId}
+            handleCategory={handleCategory}
             handleQuantity={handleQuantity}
         />    
       

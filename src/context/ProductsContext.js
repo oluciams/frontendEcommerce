@@ -14,13 +14,12 @@ export const ProductsContextProvider = ({children})=>{
     setProducts(data)    
   }
 
-  const createProduct = async(product)=>{
+  const createProduct = async(product)=>{    
     const {data} = await productsApi.post('/products', product)
     setProducts([...products, data])
   }
 
-  const deleteProduct = async (id)=>{    
-    console.log("este es el id",id)
+  const deleteProduct = async (id)=>{   
     const newProducts = products.filter((product)=> product._id !== id)
     setProducts(newProducts)
 
@@ -40,9 +39,10 @@ export const ProductsContextProvider = ({children})=>{
     image:imageEdited,
     categoryId: categoryIdEdited,
     quantity: quantityEdited})=>{
-
-      const newProducts = products.map((product)=>{
-        if(product.id === id){
+     
+       const newProducts = products.map((product)=>{
+        if(product._id === id){
+          
           return {... product,
             title: titleEdited,
             description: descriptionEdited,
@@ -58,6 +58,7 @@ export const ProductsContextProvider = ({children})=>{
       })
 
       setProducts(newProducts)
+     
 
       setTimeout(async ()=>{
         const {status} = await productsApi.put(`/products/${id}`, {
@@ -65,8 +66,8 @@ export const ProductsContextProvider = ({children})=>{
           description: descriptionEdited,
           value: valueEdited,
           image:imageEdited,
-          categoryId: categoryIdEdited,
-          quantity: quantityEdited, status: false})
+          category: categoryIdEdited,
+          quantity: quantityEdited})
           
           if (status === 400){
             fetchData()

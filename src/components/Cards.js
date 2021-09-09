@@ -5,6 +5,7 @@ import { Button } from 'react-bootstrap';
 
 
 
+
 export const Cards = ({
     cardKey,
     id,
@@ -17,7 +18,8 @@ export const Cards = ({
     deleteProduct, 
     editProduct    
    }) => {
-     
+
+        
     return (
                
     <div className="card mx-auto my-3" key={cardKey} style={{ width: '12rem' }}>
@@ -28,8 +30,7 @@ export const Cards = ({
         <IntlProvider locale="en-US" defaultLocale="en">        
         <FormattedNumber value={cardValue} style="currency" currency="USD" />      
         </IntlProvider>
-        </p> 
-        <p>Id es {id}</p>            
+        </p>                    
         <Btn variant={variant} text={text} color={color} />
         <div className="mt-2">
           <Button variant='danger'size='sm'onClick={()=>deleteProduct(id)}>Delete</Button>          

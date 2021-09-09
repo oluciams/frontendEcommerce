@@ -6,13 +6,12 @@ import { CreateProductFormContainer } from '../Products/components/CreateProduct
 export const Products = ()=> {
 
   const {products} = useContext(ProductsContext)
-
+ 
   const [productToEdit, setProductToEdit] = useState();
 
   const handleEditProduct = (id)=>{
-      console.log("id dentro de HandleEdit en Producto", id)
-      const product = products.filter((product)=> product._id === id)[0]
-      console.log("product del filtro", product)
+      
+      const product = products.filter((product)=> product._id === id)[0]      
       setProductToEdit(product)
   }
   
