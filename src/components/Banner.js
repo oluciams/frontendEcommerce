@@ -11,8 +11,8 @@ export const Banner = ({editProduct}) => {
    if(!products) return <h3>Loading . . . </h3>
 
     return (                
-        <Row>                           
-            {
+        <Row>  
+            {                
                 // products &&
                 products.map(({ _id, title, value, image }) =>           
                 
@@ -26,7 +26,7 @@ export const Banner = ({editProduct}) => {
                  deleteProduct={deleteProduct}
                  editProduct={editProduct}/>               
                 )
-            }            
+            }        
          </Row> 
         
     )
