@@ -14,8 +14,7 @@ export const Banner = ({editProduct}) => {
         <Row>  
             {                
                 // products &&
-                products.map(({ _id, title, value, image }) =>           
-                
+                products.map(({ _id, title, value, image }) =>  
                 <Cards
                  cardKey={_id}
                  id={_id}
