@@ -5,7 +5,7 @@ import { AuthContext } from '../context/AuthContextProvider';
 
 export const FormLogin = ()=>{
 
-  const {saveFormData, userToken} = useContext(AuthContext)
+  const {saveFormData} = useContext(AuthContext)
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -53,8 +53,7 @@ export const FormLogin = ()=>{
         Log In
         </Button>      
       </Form.Group>
-    </Form> 
-    <h1>{userToken}</h1>    
+    </Form>     
   </Container>  
   )
 }
