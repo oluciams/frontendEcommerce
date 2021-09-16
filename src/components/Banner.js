@@ -3,10 +3,9 @@ import { Row } from 'react-bootstrap';
 import { ProductsContext } from '../context/ProductsContext';
 import { Cards } from './Cards';
 
-export const Banner = ({editProduct}) => {
+export const Banner = (editProduct) => {
 
-   const {products, deleteProduct} = useContext(ProductsContext)
-
+    const { products, deleteProduct} = useContext(ProductsContext)
 
    if(!products) return <h3>Loading . . . </h3>
 
@@ -14,12 +13,12 @@ export const Banner = ({editProduct}) => {
         <Row>  
             {                
                 // products &&
-                products.map(({ _id, title, value, image }) =>  
+                products.map(({ _id, title, price, image }) =>  
                 <Cards
                  cardKey={_id}
                  id={_id}
                  cardTitle={title}
-                 cardValue={value}
+                 cardPrice={price}
                  cardImage={image}
                  variant={'primary'} text={'Ver más'} color='blue'
                  deleteProduct={deleteProduct}

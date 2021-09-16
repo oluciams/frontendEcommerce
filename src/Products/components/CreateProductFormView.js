@@ -4,13 +4,13 @@ import { Form, Button, Container} from 'react-bootstrap';
 export const CreateProductFormView = ({  
     title,
     description,
-    value,
+    price,
     image,
     category, 
     quantity,    
     handleTitle,
     handleDescription,
-    handleValue,
+    handlePrice,
     handleImage,
     handleCategory,
     handleQuantity,   
@@ -43,8 +43,8 @@ export const CreateProductFormView = ({
               size="sm"
               type='text'
               placeholder="$"
-              value={value}
-					    onChange={handleValue}          
+              value={price}
+					    onChange={handlePrice}          
               name='price'/>            
           </Form.Group>          
           <Form.Group className="mb-2 col-sm-6 mx-auto">          

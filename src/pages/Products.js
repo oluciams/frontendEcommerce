@@ -1,26 +1,44 @@
 import React, {useState, useContext} from 'react';
-import { Banner } from '../components/Banner';
 import { ProductsContext } from '../context/ProductsContext';
 import { CreateProductFormContainer } from '../Products/components/CreateProductFormContainer';
+import { Row } from 'react-bootstrap';
+import { Cards } from '../components/Cards';
 
 export const Products = ()=> {
 
-  const {products} = useContext(ProductsContext)
+  const {products, deleteProduct} = useContext(ProductsContext)
  
   const [productToEdit, setProductToEdit] = useState();
 
-  const handleEditProduct = (id)=>{
-      
+  const handleEditProduct = (id)=>{      
       const product = products.filter((product)=> product._id === id)[0]      
       setProductToEdit(product)
+      console.log("product desde product", product)
   }
+
+  
+  if(!products) return <h3>Loading . . . </h3>
   
   return (    
-    <div> 
+    <div>     
       <h3 className="text-center">Agregar un producto nuevo</h3>
       <CreateProductFormContainer product={productToEdit}/>  
-      <Banner editProduct={handleEditProduct}
-      />    
+        <Row>  
+          {                
+              // products &&
+              products.map(({ _id, title, price, image }) =>  
+              <Cards
+                cardKey={_id}
+                id={_id}
+                cardTitle={title}
+                cardPrice={price}
+                cardImage={image}
+                variant={'primary'} text={'Ver más'} color='blue'
+                deleteProduct={deleteProduct}
+                editProduct={handleEditProduct}/>               
+              )
+          }
+        </Row>        
     </div>
   )
 }

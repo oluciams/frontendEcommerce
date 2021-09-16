@@ -10,7 +10,7 @@ export const CreateProductFormContainer = ({product})=>{
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [value, setValue] = useState('');
+  const [price, setPrice] = useState('');
   const [image, setImage] = useState('');
   const [category, setCategory] = useState('');
   const [quantity, setQuantity] = useState('');
@@ -24,8 +24,8 @@ export const CreateProductFormContainer = ({product})=>{
     setDescription(e.target.value)
   }
   
-  const handleValue= (e)=>{
-    setValue(e.target.value)
+  const handlePrice= (e)=>{
+    setPrice(e.target.value)
   }
   
   const handleImage= (e)=>{
@@ -42,19 +42,19 @@ export const CreateProductFormContainer = ({product})=>{
 
   const handleOnSubmit = (e) => {
 		e.preventDefault()
-    if (title && description && value && image && category && quantity ) {
+    if (title && description && price && image && category && quantity ) {
       if(editMode){       
    
         updateProduct(product._id, ({        
-          title, description, value, image, categoryId: category, quantity}))
+          title, description, price, image, categoryId: category, quantity}))
           setEditMode(false)
       } else {       
-        createProduct({title, description, value, image, categoryId: category, quantity})
+        createProduct({title, description, price, image, categoryId: category, quantity})
       }      
     
     setTitle('');
     setDescription('');
-    setValue('');
+    setPrice('');
     setImage('')
     setCategory('')	
     setQuantity('')
@@ -66,16 +66,18 @@ export const CreateProductFormContainer = ({product})=>{
       if(product &&
          product.title &&
          product.description &&
-         product.value &&
+         product.price &&
          product.image &&
-         product.category &&
-         product.quantity){      
+         product.categoryId &&
+         product.quantity
+         ){              
+
 
       setTitle(product.title);
       setDescription(product.description);
-      setValue(product.value);
+      setPrice(product.price);
       setImage(product.image)
-      setCategory(product.category)	
+      setCategory(product.categoryId)	
       setQuantity(product.quantity)
       setEditMode(true)
       }
@@ -89,14 +91,14 @@ export const CreateProductFormContainer = ({product})=>{
 
             title={title}
             description={description}
-            value={value}
+            price={price}
             image={image}
             category={category}
             quantity={quantity}
             handleOnSubmit={handleOnSubmit}     
             handleTitle={handleTitle}
             handleDescription={handleDescription}
-            handleValue={handleValue}
+            handlePrice={handlePrice}
             handleImage={handleImage}
             handleCategory={handleCategory}
             handleQuantity={handleQuantity}

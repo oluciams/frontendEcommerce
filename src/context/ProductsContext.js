@@ -11,7 +11,7 @@ export const ProductsContextProvider = ({children})=>{
 
   const fetchData = async()=>{
     const {data} = await productsApi.get('/products')
-    setProducts(data)    
+    setProducts(data.products)    
   }
 
   const createProduct = async(product)=>{    
@@ -35,7 +35,7 @@ export const ProductsContextProvider = ({children})=>{
     id,{
     title: titleEdited,
     description: descriptionEdited,
-    value: valueEdited,
+    price: priceEdited,
     image:imageEdited,
     categoryId: categoryIdEdited,
     quantity: quantityEdited})=>{
@@ -46,7 +46,7 @@ export const ProductsContextProvider = ({children})=>{
           return {... product,
             title: titleEdited,
             description: descriptionEdited,
-            value: valueEdited,
+            price: priceEdited,
             image:imageEdited,
             categoryId: categoryIdEdited,
             quantity: quantityEdited}
@@ -64,12 +64,12 @@ export const ProductsContextProvider = ({children})=>{
         const {status} = await productsApi.put(`/products/${id}`, {
           title: titleEdited,
           description: descriptionEdited,
-          value: valueEdited,
+          price: priceEdited,
           image:imageEdited,
           category: categoryIdEdited,
           quantity: quantityEdited})
           
-          if (status === 400){
+          if (status === 403){
             fetchData()
           }
       }, 3000)
