@@ -18,19 +18,20 @@ export const AuthContextProvider = ({ children }) => {
     setUser(data)
   }
 
-  useEffect(async () => {     
-    try {
-      const apiData= await loginApi.post('/login', user)
+
+  useEffect(() => {     
+    
+      const apiData= loginApi.post('/login', user)
       const {data} = apiData
       console.log('token api')
       console.log(data.token);
       setUserToken(data.token)
-      localStorage.setItem('token', data.token);
+      localStorage.setItem('token', data.token);//se debe guardar como un string
   
-    } catch (error) {
-      // const {message} = error.response.data
-      console.log(error);      
-    }          
+    //  catch (error) {
+    //   // const {message} = error.response.data
+    //   console.log(}error);      
+    // }          
     
   }, [user]);
 
@@ -47,8 +48,7 @@ export const AuthContextProvider = ({ children }) => {
   
   const value = {
     saveFormData,
-    userToken,
-    
+    userToken    
   }
 
   
