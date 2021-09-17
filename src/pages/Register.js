@@ -4,7 +4,6 @@ import { Container} from 'react-bootstrap';
 import {signupApi} from '../utils/api'
 
 
-const axios = require('axios').default;
 
 export const Register = () => {
 
@@ -17,8 +16,7 @@ export const Register = () => {
    
 
   useEffect( async () => {  
-    await  signupApi.post('/signup', user)
-      // await axios.post('http://localhost:3001/signup', user)
+    await  signupApi.post('/signup', user)      
       .then(function (response) {      
         console.log(response);
       })
