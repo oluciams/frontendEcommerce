@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Form, Button, Container} from 'react-bootstrap';
+import { ProductsContext } from '../../context/ProductsContext';
 
 export const CreateProductFormView = ({  
     title,
@@ -17,6 +18,9 @@ export const CreateProductFormView = ({
     handleOnSubmit
 
 })=> {
+
+  const {categories} =useContext(ProductsContext)
+
   return (
     <Container className="mt-2">  
         <Form onSubmit={handleOnSubmit}>          
@@ -66,8 +70,9 @@ export const CreateProductFormView = ({
 					    onChange={handleCategory}             
               name='category'> 
               <option >- - - - - -</option>
-              <option value="6122a71e68e2cb238f24eaf8">Ferreteria</option>
-              <option value="6122bf53c74c252ae0c41ca7">Electro</option>               
+              {categories.map(({_id, title}) => 
+                 <option value={_id}>{title}</option> 
+              )}                         
             </Form.Select>           
           </Form.Group>     
 

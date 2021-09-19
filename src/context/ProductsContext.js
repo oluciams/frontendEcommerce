@@ -8,10 +8,17 @@ export const ProductsContext = createContext();
 export const ProductsContextProvider = ({children})=>{
 
   const [products, setProducts] = useState();
+  const [categories, setCategories] = useState();
 
   const fetchData = async()=>{
     const {data} = await productsApi.get('/products')
-    setProducts(data.products)    
+    setProducts(data)    
+  }
+
+  const fetchCategories = async()=>{
+    const {data} = await productsApi.get('/categories')
+    setCategories(data)  
+    console.log("categories", data)  
   }
 
   const createProduct = async(product)=>{    
@@ -76,11 +83,13 @@ export const ProductsContextProvider = ({children})=>{
   }
 
   useEffect(() => {
-    fetchData()    
+    fetchData() 
+    fetchCategories()   
   }, []);
 
   const value ={
-    products,    
+    products,  
+    categories,  
     createProduct,
     deleteProduct,
     updateProduct
