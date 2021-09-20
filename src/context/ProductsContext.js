@@ -21,8 +21,20 @@ export const ProductsContextProvider = ({children})=>{
     console.log("categories", data)  
   }
 
-  const createProduct = async(product)=>{    
-    const {data} = await productsApi.post('/products', product)
+  // const createProduct = async(product)=>{    
+  //   const {data} = await productsApi.post('/products', product)
+  //   setProducts([...products, data])
+  // }
+
+  //eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMmU1OTllMWY1ZDBkNTE5Yjg1ZmU2OSIsImlhdCI6MTYzMjE3MzI3N30.SHIECF4OFs4vUmyOXCgz4pk3U62Sg-spymyV74fZpsM
+
+  const createProduct = async(product)=>{     
+    const {data} = await productsApi.post('/products', product, {
+      headers: {
+        'authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMmU1OTllMWY1ZDBkNTE5Yjg1ZmU2OSIsImlhdCI6MTYzMjE3MzI3N30.SHIECF4OFs4vUmyOXCgz4pk3U62Sg-spymyV74fZpsM'
+      }
+      
+    })
     setProducts([...products, data])
   }
 
