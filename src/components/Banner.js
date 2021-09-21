@@ -15,7 +15,8 @@ export const Banner = (editProduct) => {
                 // products &&
                 products.map(({ _id, title, price, image }) =>  
                 <Cards
-                 cardKey={_id}
+                 key={_id}
+                 cardKey={_id} 
                  id={_id}
                  cardTitle={title}
                  cardPrice={price}

@@ -13,7 +13,7 @@ export const Products = ()=> {
   const handleEditProduct = (id)=>{      
       const product = products.filter((product)=> product._id === id)[0]      
       setProductToEdit(product)
-      console.log("product desde product", product)
+      
   }
 
   
@@ -28,6 +28,7 @@ export const Products = ()=> {
               // products &&
               products.map(({ _id, title, price, image }) =>  
               <Cards
+                key={_id}
                 cardKey={_id}
                 id={_id}
                 cardTitle={title}

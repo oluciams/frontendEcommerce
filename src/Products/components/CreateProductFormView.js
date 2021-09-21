@@ -70,8 +70,9 @@ export const CreateProductFormView = ({
 					    onChange={handleCategory}             
               name='category'> 
               <option >- - - - - -</option>
-              {categories.map(({_id, title}) => 
-                 <option value={_id}>{title}</option> 
+              { categories &&
+              categories.map(({_id, title}) => 
+                 <option key={_id} value={_id}>{title}</option> 
               )}                         
             </Form.Select>           
           </Form.Group>     

@@ -4,6 +4,10 @@ export const useLocalStorage =()=>{
     localStorage.setItem(key, value)
   }
 
+  const getItem = (key)=>{
+    localStorage.getItem(key)
+  }
+
   const removeItem = (key)=>{
     localStorage.removeItem(key)
   }
@@ -14,6 +18,7 @@ export const useLocalStorage =()=>{
 
   return{
     setItem,
+    getItem,
     removeItem,
     resetStorage
   }
