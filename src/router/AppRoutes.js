@@ -3,7 +3,8 @@ import React, { useContext } from 'react';
 import {
     BrowserRouter as Router,
     Switch,
-    Route    
+    Route,    
+    Redirect
   } from "react-router-dom";
 
 import { Header } from '../components/Header';
@@ -30,13 +31,14 @@ import { Logout } from '../components/Logout';
             <Header/>            
             <Switch>
               <Route path="/" exact component={Home} /> 
-              <Route path="/login" component={Login} />
               <Route path="/register" component={Register} />
+              {/* <Redirect to=""/> */}
+              <Route path="/login" component={Login} />
               <PrivateRoute exact path='/products' component={Products} userToken={userToken}/>
               <Route path="/logout" component={Logout} logout={logout}  />               
               {/* <Route path="/products" component={Products} />  */}
-              <Route path='*' component={NotFound}/>             
               {/* <Route path='/products' component={Banner}/> */}
+              <Route path='*' component={NotFound}/>             
             </Switch>
             <Footer/>
         </div>
