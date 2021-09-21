@@ -1,11 +1,14 @@
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import {productsApi} from '../utils/api'
+import { AuthContext } from './AuthContextProvider';
 
 
 export const ProductsContext = createContext();
 
 
 export const ProductsContextProvider = ({children})=>{
+
+  const {userToken} = useContext(AuthContext)
 
   const [products, setProducts] = useState();
   const [categories, setCategories] = useState();
@@ -21,19 +24,12 @@ export const ProductsContextProvider = ({children})=>{
     console.log("categories", data)  
   }
 
-  // const createProduct = async(product)=>{    
-  //   const {data} = await productsApi.post('/products', product)
-  //   setProducts([...products, data])
-  // }
-
-  //eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMmU1OTllMWY1ZDBkNTE5Yjg1ZmU2OSIsImlhdCI6MTYzMjE3MzI3N30.SHIECF4OFs4vUmyOXCgz4pk3U62Sg-spymyV74fZpsM
-
+  
   const createProduct = async(product)=>{     
     const {data} = await productsApi.post('/products', product, {
       headers: {
-        'authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMmU1OTllMWY1ZDBkNTE5Yjg1ZmU2OSIsImlhdCI6MTYzMjE3MzI3N30.SHIECF4OFs4vUmyOXCgz4pk3U62Sg-spymyV74fZpsM'
-      }
-      
+        'authorization': userToken 
+      }      
     })
     setProducts([...products, data])
   }
@@ -43,7 +39,11 @@ export const ProductsContextProvider = ({children})=>{
     setProducts(newProducts)
 
     setTimeout(async() =>{
-      const {status} = await productsApi.delete(`/products/${id}`)           
+      const {status} = await productsApi.delete(`/products/${id}`, {
+        headers: {
+        'authorization': userToken 
+       } 
+      })           
       if (status ===400){
         fetchData()
       }
@@ -101,7 +101,7 @@ export const ProductsContextProvider = ({children})=>{
 
   const value ={
     products,  
-    categories,  
+    categories,     
     createProduct,
     deleteProduct,
     updateProduct

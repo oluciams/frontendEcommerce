@@ -3,11 +3,12 @@ import { ProductsContext } from '../context/ProductsContext';
 import { CreateProductFormContainer } from '../Products/components/CreateProductFormContainer';
 import { Row } from 'react-bootstrap';
 import { Cards } from '../components/Cards';
+import { AuthContext } from '../context/AuthContextProvider';
 
 export const Products = ()=> {
 
-  const {products, deleteProduct} = useContext(ProductsContext)
- 
+  const {products, deleteProduct} = useContext(ProductsContext)  
+  
   const [productToEdit, setProductToEdit] = useState();
 
   const handleEditProduct = (id)=>{      
