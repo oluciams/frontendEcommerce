@@ -3,8 +3,8 @@ import React, { useContext } from 'react';
 import {
     BrowserRouter as Router,
     Switch,
-    Route,    
-    Redirect
+    Route    
+    //Redirect
   } from "react-router-dom";
 
 import { Header } from '../components/Header';
@@ -14,7 +14,6 @@ import { Login } from '../pages/Login';
 import { Register } from '../pages/Register';
 import { NotFound } from '../pages/NotFound';
 import { PrivateRoute } from '../components/PrivateRoute';
-import { Banner } from '../components/Banner';
 import { Products } from '../pages/Products';
 import { AuthContext } from '../context/AuthContextProvider';
 import { Logout } from '../components/Logout';
@@ -24,15 +23,13 @@ import { Logout } from '../components/Logout';
 
     const {userToken,logout } = useContext(AuthContext)
 
-    return (
-     
+    return (     
       <Router>
         <div>
             <Header/>            
             <Switch>
               <Route path="/" exact component={Home} /> 
-              <Route path="/register" component={Register} />
-              {/* <Redirect to=""/> */}
+              <Route path="/register" component={Register} />              
               <Route path="/login" component={Login} />
               <PrivateRoute exact path='/products' component={Products} userToken={userToken}/>
               <Route path="/logout" component={Logout} logout={logout}  />               

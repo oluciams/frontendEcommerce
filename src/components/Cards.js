@@ -15,7 +15,6 @@ export const Cards = ({
     deleteProduct, 
     editProduct    
    }) => {
-
         
     return (
                

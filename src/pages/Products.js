@@ -11,12 +11,17 @@ export const Products = ()=> {
   
   const [productToEdit, setProductToEdit] = useState();
 
-  const handleEditProduct = (id)=>{      
-      const product = products.filter((product)=> product._id === id)[0]      
-      setProductToEdit(product)
+  // const handleEditProduct = (id)=>{      
+  //     const product = products.filter((product)=> product._id === id)[0]      
+  //     setProductToEdit(product)
       
-  }
+  // }
 
+  const editProduct = (id)=>{      
+    const product = products.filter((product)=> product._id === id)[0]      
+    setProductToEdit(product)
+    
+}
   
   if(!products) return <h3>Loading . . . </h3>
   
@@ -26,7 +31,6 @@ export const Products = ()=> {
       <CreateProductFormContainer product={productToEdit}/>  
         <Row>  
           {                
-              // products &&
               products.map(({ _id, title, price, image }) =>  
               <Cards
                 key={_id}
@@ -37,7 +41,8 @@ export const Products = ()=> {
                 cardImage={image}
                 variant={'primary'} text={'Ver más'} color='blue'
                 deleteProduct={deleteProduct}
-                editProduct={handleEditProduct}/>               
+                // editProduct={handleEditProduct}
+                editProduct={editProduct}/>               
               )
           }
         </Row>        

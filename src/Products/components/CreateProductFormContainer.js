@@ -1,5 +1,4 @@
 import React, { useState, useContext, useEffect} from 'react';
-import { Banner } from '../../components/Banner';
 import { ProductsContext } from '../../context/ProductsContext';
 import {CreateProductFormView} from '../components/CreateProductFormView';
 
