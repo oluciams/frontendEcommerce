@@ -8,7 +8,9 @@ export const ProductsContext = createContext();
 
 export const ProductsContextProvider = ({children})=>{
 
+  // const {userToken} = useContext(AuthContext)
   const {userToken} = useContext(AuthContext)
+  
 
   const [products, setProducts] = useState();
   const [categories, setCategories] = useState();
@@ -73,27 +75,50 @@ export const ProductsContextProvider = ({children})=>{
         } else{
           return product
         }
-
       })
-
       setProducts(newProducts)
-     
 
-      setTimeout(async ()=>{
-        const {status} = await productsApi.put(`/products/${id}`, {
-          title: titleEdited,
-          description: descriptionEdited,
-          price: priceEdited,
-          image:imageEdited,
-          category: categoryIdEdited,
-          quantity: quantityEdited})
+      const {status} = productsApi.put(`/products/${id}`,  {
+        title: titleEdited,
+        description: descriptionEdited,
+        price: priceEdited,
+        image:imageEdited,
+        categoryId: categoryIdEdited,
+        quantity: quantityEdited},
+        {
+          headers: {
+          'authorization': userToken
+         } 
+        })          
+        if (status === 403){
+          fetchData()
+        }
+    }
+
+      // setTimeout(async ()=>{
+      //   const {status} = await productsApi.put(`/products/${id}`,  {
+      //     title: titleEdited,
+      //     description: descriptionEdited,
+      //     price: priceEdited,
+      //     image:imageEdited,
+      //     categoryId: categoryIdEdited,
+      //     quantity: quantityEdited},
+      //     {
+      //       headers: {
+      //       'authorization': userToken
+      //      } 
+      //     }
           
-          if (status === 403){
-            fetchData()
-          }
-      }, 3000)
-  }
+          
+      //     )
 
+
+          
+      //     if (status === 403){
+      //       fetchData()
+      //     }
+      // }, 3000)
+ 
   useEffect(() => {
     fetchData() 
     fetchCategories()   
