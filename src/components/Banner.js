@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, {useContext } from 'react'
 import { Row } from 'react-bootstrap';
 import { ProductsContext } from '../context/ProductsContext';
 import { Cards } from './Cards';

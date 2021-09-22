@@ -14,6 +14,7 @@ export const ProductsContextProvider = ({children})=>{
   const [categories, setCategories] = useState();
 
   const fetchData = async()=>{
+    
     const {data} = await productsApi.get('/products')
     setProducts(data)    
   }
