@@ -8,9 +8,7 @@ export const ProductsContext = createContext();
 
 export const ProductsContextProvider = ({children})=>{
 
-  // const {userToken} = useContext(AuthContext)
-  const {userToken} = useContext(AuthContext)
-  
+  const {userToken} = useContext(AuthContext)  
 
   const [products, setProducts] = useState();
   const [categories, setCategories] = useState();
@@ -37,22 +35,19 @@ export const ProductsContextProvider = ({children})=>{
   }
 
   const deleteProduct = async (id)=>{   
-    const newProducts = products.filter((product)=> product._id !== id)
+    const newProducts = await products.filter((product)=> product._id !== id)
     setProducts(newProducts)
 
-    setTimeout(async() =>{
-      const {status} = await productsApi.delete(`/products/${id}`, {
-        headers: {
-        'authorization': userToken 
-       } 
-      })           
+    const {status} = await productsApi.delete(`/products/${id}`, {
+        headers: {'authorization': userToken} 
+      }) 
+
       if (status ===400){
         fetchData()
       }
-    }, 3000)
   }
 
-  const updateProduct = async (
+  const updateProduct = async(
     id,{
     title: titleEdited,
     description: descriptionEdited,
@@ -61,7 +56,7 @@ export const ProductsContextProvider = ({children})=>{
     categoryId: categoryIdEdited,
     quantity: quantityEdited})=>{
      
-       const newProducts = products.map((product)=>{
+       const newProducts = await products.map((product)=>{
         if(product._id === id){
           
           return {... product,
@@ -78,7 +73,7 @@ export const ProductsContextProvider = ({children})=>{
       })
       setProducts(newProducts)
 
-      const {status} = productsApi.put(`/products/${id}`,  {
+      const {status} = await productsApi.put(`/products/${id}`,  {
         title: titleEdited,
         description: descriptionEdited,
         price: priceEdited,
@@ -94,30 +89,6 @@ export const ProductsContextProvider = ({children})=>{
           fetchData()
         }
     }
-
-      // setTimeout(async ()=>{
-      //   const {status} = await productsApi.put(`/products/${id}`,  {
-      //     title: titleEdited,
-      //     description: descriptionEdited,
-      //     price: priceEdited,
-      //     image:imageEdited,
-      //     categoryId: categoryIdEdited,
-      //     quantity: quantityEdited},
-      //     {
-      //       headers: {
-      //       'authorization': userToken
-      //      } 
-      //     }
-          
-          
-      //     )
-
-
-          
-      //     if (status === 403){
-      //       fetchData()
-      //     }
-      // }, 3000)
  
   useEffect(() => {
     fetchData() 
