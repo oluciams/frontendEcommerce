@@ -11,7 +11,6 @@ import { Header } from '../components/Header';
 import { Home } from '../pages/Home';
 import {Footer} from '../components/Footer';
 import { Login } from '../pages/Login';
-import { Register } from '../pages/Register';
 import { NotFound } from '../pages/NotFound';
 import { PrivateRoute } from '../components/PrivateRoute';
 import { Products } from '../pages/Products';

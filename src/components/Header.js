@@ -1,35 +1,25 @@
 import { Container} from 'react-bootstrap';
 import { Navbar, Nav} from 'react-bootstrap';
-import { NavLink, Link} from 'react-router-dom'
+import { NavLink} from 'react-router-dom'
 
 export const Header = () => {
    
     return (
     <>       
       <Navbar bg="light" variant="light">
-          <Container>
-            <Navbar.Brand>Ecommerce</Navbar.Brand>
-            <Nav className="">
-              <Nav.Link>              
-                <NavLink exact activeClassName="active" to='/' >Home </NavLink>              
-              </Nav.Link>    
-              <Nav.Link>              
-                <NavLink exact activeClassName="active" to='/login'>Login</NavLink>
-              </Nav.Link> 
-              <Nav.Link>              
-                <NavLink exact activeClassName="active" to='/register'>Register</NavLink>
-              </Nav.Link> 
-                <Nav.Link>              
-                <NavLink activeClassName="active" to='/products'>Products</NavLink>
-              </Nav.Link>
-              <Nav.Link>              
-                <NavLink exact activeClassName="active" to='/logout'>Logout</NavLink>
-              </Nav.Link>  
+        <Container>
+          <Navbar.Brand>Ecommerce</Navbar.Brand>
+            <Nav className="">                       
+              <NavLink className="mx-2" exact activeClassName="active" to='/' >Home </NavLink>                      
+              <NavLink className="mx-2"exact activeClassName="active" to='/login'>Login</NavLink>                      
+              <NavLink className="mx-2"exact activeClassName="active" to='/register'>Register</NavLink>                        
+              <NavLink className="mx-2"activeClassName="active" to='/products'>Products</NavLink>                      
+              <NavLink className="mx-2"exact activeClassName="active" to='/logout'>Logout</NavLink>                
               {/* <Link to='/acerca'>Acerca</Link>
               <Link to='/products'>Productos</Link>
               <Link to= '/dashboard'>Dashboard</Link>        */}
             </Nav>
-          </Container>
+        </Container>
       </Navbar>
     </>
     )
