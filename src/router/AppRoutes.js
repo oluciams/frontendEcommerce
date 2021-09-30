@@ -17,6 +17,7 @@ import { PrivateRoute } from '../components/PrivateRoute';
 import { Products } from '../pages/Products';
 import { AuthContext } from '../context/AuthContextProvider';
 import { Logout } from '../components/Logout';
+import { RegisterForm } from '../components/RegisterForm';
 
   
   export const AppRoutes = () => {
@@ -29,7 +30,7 @@ import { Logout } from '../components/Logout';
             <Header/>            
             <Switch>
               <Route path="/" exact component={Home} /> 
-              <Route path="/register" component={Register} />              
+              <Route path="/register" component={RegisterForm} />              
               <Route path="/login" component={Login} />
               <PrivateRoute exact path='/products' component={Products} userToken={userToken}/>
               <Route path="/logout" component={Logout} logout={logout}  />               
