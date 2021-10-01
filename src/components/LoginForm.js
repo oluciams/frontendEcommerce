@@ -4,22 +4,30 @@ import {Field, Formik, ErrorMessage} from 'formik'
 import { loginSchema } from '../validations/login.validation';
 import { ToastContainer } from 'react-toastify';
 import { AuthContext } from '../context/AuthContextProvider';
-
+import { useHistory } from 'react-router-dom';
 
 export const LoginForm = ()=>{ 
 
-  const {saveFormData} = useContext(AuthContext)
+  const {saveFormData, redirect, resetRedirect } = useContext(AuthContext)
   const initialValues = { email:'', password:''}
+  
+  let history = useHistory()
 
   const handleSubmitForm = (values, { resetForm }) => {
     saveFormData(values)  
-      resetForm()       
+    resetForm()       
   };  
+
+  if(redirect){
+    history.push("/")
+    setTimeout(() => {
+      resetRedirect(false)  
+    }, 5000);      
+  }
 
   return(
 
-   
-    <div> 
+    <div>  
       
       <p className="text-center mt-4"> <strong>Log in to Your Account!</strong></p> 
 

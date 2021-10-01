@@ -5,8 +5,11 @@ import { userSchema } from '../validations/user.validation'
 import { signupApi } from '../utils/api'
 import { notify } from '../utils/notify';
 import { ToastContainer } from 'react-toastify';
+import { useHistory } from 'react-router-dom';
 
 export const RegisterForm = ()=>{ 
+
+  let history = useHistory()
 
   const initialValues = { name: '', lastname:'', email:'', password:'', confirmationPassword:'', profilePicture:''}
 
@@ -15,6 +18,7 @@ export const RegisterForm = ()=>{
       const data = await signupApi.post('/signup', values) 
       resetForm();
       notify("Registered successfully", true)
+      history.push("/login")      
     } catch (error) {
       notify("Something gone wrong", false)      
     }    
