@@ -1,6 +1,7 @@
 import {createContext, useState, useEffect} from 'react';
 import {loginApi} from '../utils/api'
 import {useLocalStorage} from '../customHooks/useLocalStorage'
+import { notify } from '../utils/notify';
 
 
 export const AuthContext = createContext();
@@ -10,32 +11,31 @@ export const AuthContextProvider = ({ children }) => {
   const hookStorage = useLocalStorage()
 
   let token = localStorage.getItem('token') 
-  //let token = hookStorage.getItem('token') 
-  //console.log("variable token",token)
 
   const [userToken, setUserToken] = useState(token);
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(); 
 
-  
-  const saveFormData = (email, password) =>{
-    const data = {email, password}
-    setUser(data)
+  const saveFormData = (values) =>{
+    setUser(values)
   }
 
-  useEffect(async () => {     
-    try{
-      const apiData= await loginApi.post('/login', user)     
-      const {data} = apiData
-      console.log ('respuesta token desde la api', data)      
-      setUserToken(data)
-      hookStorage.setItem('token', data)       
-    }  
-    catch (error) {    
-      console.log(error);      
-    }          
+  useEffect(async () => {  
+     if (user){
+       try{
+         const apiData= await loginApi.post('/login', user)          
+         const {data} = apiData            
+         setUserToken(data)    
+         hookStorage.setItem('token', data)  
+         notify("Login successfull", true)          
+       }  
+       catch (error) {           
+         notify("Something gone wrong", false)   
+       }          
+     }
     
-  }, [user]);
+  },[user]);
 
+  
   useEffect(() => { 
     if (token)
     setUserToken(token)
@@ -49,7 +49,8 @@ export const AuthContextProvider = ({ children }) => {
   
   const value = {
     saveFormData,
-    userToken    
+    userToken
+    
   }
 
   
