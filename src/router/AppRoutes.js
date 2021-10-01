@@ -4,7 +4,6 @@ import {
     BrowserRouter as Router,
     Switch,
     Route    
-    //Redirect
   } from "react-router-dom";
 
 import { Header } from '../components/Header';
@@ -14,7 +13,6 @@ import { NotFound } from '../pages/NotFound';
 import { PrivateRoute } from '../components/PrivateRoute';
 import { Products } from '../pages/Products';
 import { AuthContext } from '../context/AuthContextProvider';
-import { Logout } from '../components/Logout';
 import { RegisterForm } from '../components/RegisterForm';
 import { LoginForm } from '../components/LoginForm';
 
@@ -32,9 +30,6 @@ import { LoginForm } from '../components/LoginForm';
               <Route path="/register" component={RegisterForm} />              
               <Route path="/login" component={LoginForm} />
               <PrivateRoute exact path='/products' component={Products} userToken={userToken}/>
-              <Route path="/logout" component={Logout} logout={logout}  />               
-              {/* <Route path="/products" component={Products} />  */}
-              {/* <Route path='/products' component={Banner}/> */}
               <Route path='*' component={NotFound}/>             
             </Switch>
             <Footer/>

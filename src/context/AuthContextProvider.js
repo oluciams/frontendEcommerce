@@ -19,6 +19,12 @@ export const AuthContextProvider = ({ children }) => {
     setUser(values)
   }
 
+  const logout= ()=> {
+    localStorage.clear('token')
+    setUserToken(false)
+
+  }
+
   useEffect(async () => {  
      if (user){
        try{
@@ -41,16 +47,12 @@ export const AuthContextProvider = ({ children }) => {
     setUserToken(token)
   }, []);
 
-  // const logout= ()=> {
-  //   localStorage.clear('token')
-  //   setUserToken(false)
 
-  // }
   
   const value = {
     saveFormData,
-    userToken
-    
+    userToken,
+    logout    
   }
 
   
