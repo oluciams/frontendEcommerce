@@ -18,9 +18,9 @@ export const RegisterForm = ()=>{
       const data = await signupApi.post('/signup', values) 
       resetForm();
       notify("Registered successfully", true)
-      history.push("/login")      
-    } catch (error) {
-      notify("Something gone wrong", false)      
+      history.push("/login")       
+    } catch (error) {     
+      notify("Something gone wrong", false)       
     }    
   };
 
