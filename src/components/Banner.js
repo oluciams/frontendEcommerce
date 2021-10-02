@@ -20,7 +20,7 @@ export const Banner = () => {
                  cardTitle={title}
                  cardPrice={price}
                  cardImage={image}
-                 variant={'primary'} text={'Ver más'} color='blue'/>                              
+                 variant={'primary'} text={'Agregar'} color='blue'/>                              
                 )
             }        
          </Row> 

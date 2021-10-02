@@ -1,17 +1,13 @@
-import React from 'react';
-import { Button as Btn } from './Button';
+import React from 'react'
 import {IntlProvider, FormattedNumber} from 'react-intl'
-import { Button } from 'react-bootstrap';
+import { Button } from 'react-bootstrap'
 
 export const Cards = ({
     cardKey,
     id,
     cardTitle,
     cardPrice,
-    cardImage,    
-    variant,
-    text,
-    color,
+    cardImage,      
     deleteProduct, 
     editProduct    
    }) => {
@@ -26,8 +22,7 @@ export const Cards = ({
         <IntlProvider locale="en-US" defaultLocale="en">        
         <FormattedNumber value={cardPrice} style="currency" currency="USD" />      
         </IntlProvider>
-        </p>                    
-        <Btn variant={variant} text={text} color={color} />
+        </p>        
         <div className="mt-2">
           <Button variant='danger'size='sm'onClick={()=>deleteProduct(id)}>Delete</Button>          
           <Button className="m-2" variant='primary' size='sm' onClick={()=>editProduct(id)}>Edit</Button>      

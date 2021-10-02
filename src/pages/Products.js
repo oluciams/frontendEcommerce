@@ -38,8 +38,7 @@ export const Products = ()=> {
                 id={_id}
                 cardTitle={title}
                 cardPrice={price}
-                cardImage={image}
-                variant={'primary'} text={'Ver más'} color='blue'
+                cardImage={image}                
                 deleteProduct={deleteProduct}
                 // editProduct={handleEditProduct}
                 editProduct={editProduct}/>               
