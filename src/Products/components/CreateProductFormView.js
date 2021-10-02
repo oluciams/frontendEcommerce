@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Form, Button, Container} from 'react-bootstrap';
 import { ProductsContext } from '../../context/ProductsContext';
+import Upload from './Upload';
 
 export const CreateProductFormView = ({  
     title,
@@ -50,16 +51,7 @@ export const CreateProductFormView = ({
               value={price}
 					    onChange={handlePrice}          
               name='price'/>            
-          </Form.Group>          
-          <Form.Group className="mb-2 col-sm-6 mx-auto">          
-            <Form.Control
-              size="sm"
-              type="text"
-              placeholder="url"
-              value={image}
-					    onChange={handleImage}       
-              name='image'/>
-          </Form.Group>      
+          </Form.Group>    
 
           <Form.Group className="mb-2 col-sm-6 mx-auto"> 
             <Form.Select
@@ -86,6 +78,21 @@ export const CreateProductFormView = ({
 					   onChange={handleQuantity}           
              name='quantity'/>         
           </Form.Group>
+
+          <Form.Group className="mb-2 col-sm-6 mx-auto">          
+            <Form.Control
+              size="sm"
+              type="text"
+              placeholder="url"
+              value={image}
+					    onChange={handleImage}       
+              name='image'/>
+          </Form.Group> 
+
+          {/* <Form.Group className="mb-2 col-sm-6 mx-auto">  
+          <Upload></Upload>       
+      
+          </Form.Group>  */}
 
           <Form.Group className="mb-2 col-sm-6 mx-auto"> 
           <Button size="sm" variant="primary" type="submit">
