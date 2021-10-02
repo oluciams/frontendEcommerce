@@ -55,8 +55,6 @@ export const AuthContextProvider = ({ children }) => {
     if (token)
     setUserToken(token)
   }, []);
-
-
   
   const value = {
     saveFormData,
@@ -66,13 +64,10 @@ export const AuthContextProvider = ({ children }) => {
     resetRedirect  
   }
 
-  
-
   return (
     <AuthContext.Provider value={value}>
       {children}
-    </AuthContext.Provider>
-    
+    </AuthContext.Provider>    
   )
 }
 
