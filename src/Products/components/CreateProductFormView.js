@@ -6,17 +6,19 @@ import Upload from './Upload';
 export const CreateProductFormView = ({  
     title,
     description,
-    price,
-    image,
+    price,    
     category, 
     quantity,    
     handleTitle,
     handleDescription,
-    handlePrice,
-    handleImage,
+    handlePrice,    
     handleCategory,
     handleQuantity,   
-    handleOnSubmit
+    handleOnSubmit,
+    handleFileInputChange,    
+    fileInputState,
+    previewSource,
+   
 
 })=> {
 
@@ -79,7 +81,7 @@ export const CreateProductFormView = ({
              name='quantity'/>         
           </Form.Group>
 
-          <Form.Group className="mb-2 col-sm-6 mx-auto">          
+          {/* <Form.Group className="mb-2 col-sm-6 mx-auto">          
             <Form.Control
               size="sm"
               type="text"
@@ -87,19 +89,40 @@ export const CreateProductFormView = ({
               value={image}
 					    onChange={handleImage}       
               name='image'/>
-          </Form.Group> 
-
-          {/* <Form.Group className="mb-2 col-sm-6 mx-auto">  
-          <Upload></Upload>       
-      
           </Form.Group>  */}
+
+          <Form.Group className="mb-2 col-sm-6 mx-auto">          
+            <Form.Control
+              size="sm"
+              type="file"             
+              value={fileInputState}
+					    onChange={handleFileInputChange}       
+              name='image'/>
+          </Form.Group> 
+{/* 
+          <input
+                    id="fileInput"
+                    type="file"
+                    name="image"
+                    onChange={handleFileInputChange}
+                    value={fileInputState}
+                    className="form-input"
+          /> */}       
 
           <Form.Group className="mb-2 col-sm-6 mx-auto"> 
           <Button size="sm" variant="primary" type="submit">
             submit
           </Button>      
           </Form.Group>
-        </Form>     
+        </Form> 
+
+        {previewSource && (
+                <img
+                    src={previewSource}
+                    alt="chosen"
+                    style={{ height: '100px' }}
+                />
+        )}    
           
     </Container>
   )

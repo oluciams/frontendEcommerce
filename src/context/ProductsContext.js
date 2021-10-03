@@ -26,13 +26,57 @@ export const ProductsContextProvider = ({children})=>{
   }
 
   
-  const createProduct = async(product)=>{     
+  const createProduct = async(product, base64EncodedImage)=>{
+
+  try {
+
+    let cloudinaryImageId
+
+    const fetchData = () => {
+        return fetch('http://localhost:3001/api/upload', {
+            method: 'POST',
+            body: JSON.stringify({ data: base64EncodedImage }),
+            headers: { 'Content-Type': 'application/json' },
+        })
+        .then((response) => response.json())
+        .then((data) => cloudinaryImageId = data.public_id)
+        .then((data) => console.log("soy data", data.public_id))
+        
+    }
+    await fetchData(); 
+
+    product.image = cloudinaryImageId
+
+    console.log("soy product", product)
+
     const {data} = await productsApi.post('/products', product, {
       headers: {
         'authorization': userToken 
       }      
     })
     setProducts([...products, data])
+          
+      
+      // setFileInputState('');
+      // setPreviewSource('');
+      // setSuccessMsg('Image uploaded successfully');
+  } catch (err) {
+      console.error(err);
+      // setErrMsg('Something went wrong!');
+  }
+
+  console.log("saoy product", product)
+
+
+
+
+
+    // const {data} = await productsApi.post('/products', product, {
+    //   headers: {
+    //     'authorization': userToken 
+    //   }      
+    // })
+    // setProducts([...products, data])
   }
 
   const deleteProduct = async (id)=>{   

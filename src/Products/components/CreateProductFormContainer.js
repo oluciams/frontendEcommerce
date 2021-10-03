@@ -7,14 +7,37 @@ export const CreateProductFormContainer = ({product})=>{
 
   const {createProduct, updateProduct} =useContext(ProductsContext)
 
+  // Product States
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
-  const [image, setImage] = useState('');
   const [category, setCategory] = useState('');
   const [quantity, setQuantity] = useState('');
   const [editMode, setEditMode] = useState(false);
 
+  // Image States
+  const [fileInputState, setFileInputState] = useState('');
+  const [previewSource, setPreviewSource] = useState('');
+  const [selectedFile, setSelectedFile] = useState();
+
+  // Image  logic
+
+  const handleFileInputChange = (e) => {
+      const file = e.target.files[0];
+      previewFile(file);
+      setSelectedFile(file);
+      setFileInputState(e.target.value);
+  };
+
+  const previewFile = (file) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+          setPreviewSource(reader.result);           
+      };      
+  };
+
+  // Product Logic
   const handleTitle= (e)=>{
     setTitle(e.target.value)
   }
@@ -26,10 +49,6 @@ export const CreateProductFormContainer = ({product})=>{
   const handlePrice= (e)=>{
     setPrice(e.target.value)
   }
-  
-  const handleImage= (e)=>{
-    setImage(e.target.value)
-  }
 
   const handleCategory= (e)=>{
     setCategory(e.target.value)
@@ -39,48 +58,93 @@ export const CreateProductFormContainer = ({product})=>{
     setQuantity(e.target.value)
   } 
 
+  // Submit for images and products
+
   const handleOnSubmit = (e) => {
 		e.preventDefault()
-    if (title && description && price && image && category && quantity ) {
+
+    // Product
+    if (title && description && price && category && quantity ) {
       if(editMode){       
    
         updateProduct(product._id, ({        
-          title, description, price, image, categoryId: category, quantity}))
+          title, description, price, categoryId: category, quantity}))
           setEditMode(false)
-      } else {       
-        createProduct({title, description, price, image, categoryId: category, quantity})
+
+      } else { 
+        
+        if (!selectedFile) return;
+        const reader = new FileReader();
+        reader.readAsDataURL(selectedFile);  
+        reader.onloadend = () => {
+            //uploadImage(reader.result);
+            createProduct({title, description, price, categoryId: category, quantity}, reader.result)
+
+        };
+        reader.onerror = () => {
+            console.error('AHHHHHHHH!!');
+            // setErrMsg('something went wrong!');
+        };  
+
+        //createProduct({title, description, price, categoryId: category, quantity})
       }      
     
     setTitle('');
     setDescription('');
-    setPrice('');
-    setImage('')
+    setPrice('');   
     setCategory('')	
     setQuantity('')
+
+    setFileInputState('');
+    setPreviewSource('');
 
     };
   } 
 
-    useEffect(() => {
-      if(product &&
-         product.title &&
-         product.description &&
-         product.price &&
-         product.image &&
-         product.categoryId &&
-         product.quantity
-         ){              
+
+  // const uploadImage = async (base64EncodedImage) => {        
+  //   try {
+
+  //       const fetchData = () => {
+  //           return fetch('http://localhost:3001/api/upload', {
+  //               method: 'POST',
+  //               body: JSON.stringify({ data: base64EncodedImage }),
+  //               headers: { 'Content-Type': 'application/json' },
+  //           })
+  //           .then((response) => response.json())
+  //           .then((data) => console.log(data))
+  //       }
+
+  //       await fetchData();           
+        
+  //       setFileInputState('');
+  //       setPreviewSource('');
+  //       // setSuccessMsg('Image uploaded successfully');
+  //   } catch (err) {
+  //       console.error(err);
+  //       // setErrMsg('Something went wrong!');
+  //   }
+  // };
+
+  useEffect(() => {
+    if(product &&
+        product.title &&
+        product.description &&
+        product.price &&
+        product.image &&
+        product.categoryId &&
+        product.quantity
+    ){              
 
 
-      setTitle(product.title);
-      setDescription(product.description);
-      setPrice(product.price);
-      setImage(product.image)
-      setCategory(product.categoryId)	
-      setQuantity(product.quantity)
-      setEditMode(true)
-      }
-    }, [product]);
+    setTitle(product.title);
+    setDescription(product.description);
+    setPrice(product.price);    
+    setCategory(product.categoryId)	
+    setQuantity(product.quantity)
+    setEditMode(true)
+    }
+  }, [product]);
 
   
      
@@ -90,17 +154,19 @@ export const CreateProductFormContainer = ({product})=>{
 
             title={title}
             description={description}
-            price={price}
-            image={image}
+            price={price}           
             category={category}
             quantity={quantity}
             handleOnSubmit={handleOnSubmit}     
             handleTitle={handleTitle}
             handleDescription={handleDescription}
-            handlePrice={handlePrice}
-            handleImage={handleImage}
+            handlePrice={handlePrice}            
             handleCategory={handleCategory}
             handleQuantity={handleQuantity}
+            handleFileInputChange={handleFileInputChange}            
+            fileInputState={fileInputState}
+            previewSource={previewSource}           
+
         />    
       
 
