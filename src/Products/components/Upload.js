@@ -18,16 +18,16 @@ export default function Upload() {
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onloadend = () => {
-            setPreviewSource(reader.result);
+            setPreviewSource(reader.result);           
         };
+        
     };
 
-    const handleSubmitFile = (e) => {
-        console.log("hola desde handleSubmitFile")
+    const handleSubmitFile = (e) => {        
         e.preventDefault();
         if (!selectedFile) return;
         const reader = new FileReader();
-        reader.readAsDataURL(selectedFile);
+        reader.readAsDataURL(selectedFile);  
         reader.onloadend = () => {
             uploadImage(reader.result);
         };
@@ -37,8 +37,7 @@ export default function Upload() {
         };
     };
 
-    const uploadImage = async (base64EncodedImage) => {
-        console.log("hola desde uploadImage")
+    const uploadImage = async (base64EncodedImage) => {        
         try {
 
             const fetchData = () => {
@@ -51,7 +50,7 @@ export default function Upload() {
                 .then((data) => console.log(data))
             }
 
-            fetchData();           
+            await fetchData();           
             
             setFileInputState('');
             setPreviewSource('');
@@ -83,7 +82,7 @@ export default function Upload() {
                 <img
                     src={previewSource}
                     alt="chosen"
-                    style={{ height: '300px' }}
+                    style={{ height: '100px' }}
                 />
             )}
         </div>
