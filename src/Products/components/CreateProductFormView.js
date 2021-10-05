@@ -109,7 +109,7 @@ export const CreateProductFormView = ({
                     className="form-input"
           /> */}       
 
-          <Form.Group className="mb-2 col-sm-6 mx-auto"> 
+          <Form.Group className="row d-flex mb-2 col-sm-6 mx-auto"> 
           <Button size="sm" variant="primary" type="submit">
             submit
           </Button>      
