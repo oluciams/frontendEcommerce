@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import {productsApi} from '../utils/api'
-import { AuthContext } from './AuthContextProvider';
+import { AuthContext } from './AuthContextProvider'
+import { notify } from '../utils/notify'
 
 
 export const ProductsContext = createContext();
@@ -13,8 +14,8 @@ export const ProductsContextProvider = ({children})=>{
   const [products, setProducts] = useState();
   const [categories, setCategories] = useState();
 
-  const fetchData = async()=>{
-    
+
+  const fetchData = async()=>{    
     const {data} = await productsApi.get('/products')
     setProducts(data)    
   }
@@ -28,55 +29,38 @@ export const ProductsContextProvider = ({children})=>{
   
   const createProduct = async(product, base64EncodedImage)=>{
 
-  try {
+    try {
+      let cloudinaryImageId
 
-    let cloudinaryImageId
+      const fetchData = () => {
+          return fetch('http://localhost:3001/api/upload', {
+              method: 'POST',
+              body: JSON.stringify({ data: base64EncodedImage }),
+              headers: { 'Content-Type': 'application/json' },
+          })
+          .then((response) => response.json())
+          .then((data) => cloudinaryImageId = data.public_id)        
+      }
+      await fetchData();    
 
-    const fetchData = () => {
-        return fetch('http://localhost:3001/api/upload', {
-            method: 'POST',
-            body: JSON.stringify({ data: base64EncodedImage }),
-            headers: { 'Content-Type': 'application/json' },
-        })
-        .then((response) => response.json())
-        .then((data) => cloudinaryImageId = data.public_id)
-        .then((data) => console.log("soy data", data.public_id))
+
+      product.image = cloudinaryImageId  
+      console.log("soy product", product)
+
+      const {data} = await productsApi.post('/products', product, {
+        headers: {
+          'authorization': userToken 
+        }      
+      })
+
+      setProducts([...products, data])   
+      notify("Product created", true)          
         
+    } catch (err) {
+        console.error(err);     
+        notify("Something gone wrong", false) 
     }
-    await fetchData(); 
 
-    product.image = cloudinaryImageId
-
-    console.log("soy product", product)
-
-    const {data} = await productsApi.post('/products', product, {
-      headers: {
-        'authorization': userToken 
-      }      
-    })
-    setProducts([...products, data])
-          
-      
-      // setFileInputState('');
-      // setPreviewSource('');
-      // setSuccessMsg('Image uploaded successfully');
-  } catch (err) {
-      console.error(err);
-      // setErrMsg('Something went wrong!');
-  }
-
-  console.log("saoy product", product)
-
-
-
-
-
-    // const {data} = await productsApi.post('/products', product, {
-    //   headers: {
-    //     'authorization': userToken 
-    //   }      
-    // })
-    // setProducts([...products, data])
   }
 
   const deleteProduct = async (id)=>{   
@@ -93,47 +77,47 @@ export const ProductsContextProvider = ({children})=>{
   }
 
   const updateProduct = async(
-    id,{
-    title: titleEdited,
-    description: descriptionEdited,
-    price: priceEdited,
-    image:imageEdited,
-    categoryId: categoryIdEdited,
-    quantity: quantityEdited})=>{
-     
-       const newProducts = await products.map((product)=>{
-        if(product._id === id){
-          
-          return {... product,
-            title: titleEdited,
-            description: descriptionEdited,
-            price: priceEdited,
-            image:imageEdited,
-            categoryId: categoryIdEdited,
-            quantity: quantityEdited}
+  id,{
+  title: titleEdited,
+  description: descriptionEdited,
+  price: priceEdited,
+  image:imageEdited,
+  categoryId: categoryIdEdited,
+  quantity: quantityEdited})=>{
+    
+      const newProducts = await products.map((product)=>{
+      if(product._id === id){
+        
+        return {... product,
+          title: titleEdited,
+          description: descriptionEdited,
+          price: priceEdited,
+          image:imageEdited,
+          categoryId: categoryIdEdited,
+          quantity: quantityEdited}
 
-        } else{
-          return product
-        }
-      })
-      setProducts(newProducts)
+      } else{
+        return product
+      }
+    })
+    setProducts(newProducts)
 
-      const {status} = await productsApi.put(`/products/${id}`,  {
-        title: titleEdited,
-        description: descriptionEdited,
-        price: priceEdited,
-        image:imageEdited,
-        categoryId: categoryIdEdited,
-        quantity: quantityEdited},
-        {
-          headers: {
-          'authorization': userToken
-         } 
-        })          
-        if (status === 403){
-          fetchData()
-        }
-    }
+    const {status} = await productsApi.put(`/products/${id}`,  {
+      title: titleEdited,
+      description: descriptionEdited,
+      price: priceEdited,
+      image:imageEdited,
+      categoryId: categoryIdEdited,
+      quantity: quantityEdited},
+      {
+        headers: {
+        'authorization': userToken
+        } 
+      })          
+      if (status === 403){
+        fetchData()
+      }
+  }
  
   useEffect(() => {
     fetchData() 

@@ -13,8 +13,7 @@ export const CardsHome = ({
     color    
    }) => {        
     return (               
-      <div className="card mx-auto my-3" key={cardKey} style={{ width: '12rem' }}>
-        {/* <img src={cardImage} className="card-img-top" alt=""></img> */}
+      <div className="card mx-auto my-3" key={cardKey} style={{ width: '12rem' }}>        
         <Image
         className="card-img-top mt-2"        
         cloudName={process.env.REACT_APP_CLOUDINARY_NAME}                            

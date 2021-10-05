@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Form, Button, Container} from 'react-bootstrap';
 import { ProductsContext } from '../../context/ProductsContext';
-import Upload from './Upload';
+import { ToastContainer } from 'react-toastify';
 
 export const CreateProductFormView = ({  
     title,
@@ -123,7 +123,8 @@ export const CreateProductFormView = ({
                     style={{ height: '100px' }}
                 />
         )}    
-          
+
+      <ToastContainer/>  
     </Container>
   )
 }

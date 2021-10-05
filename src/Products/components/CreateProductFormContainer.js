@@ -76,17 +76,14 @@ export const CreateProductFormContainer = ({product})=>{
         if (!selectedFile) return;
         const reader = new FileReader();
         reader.readAsDataURL(selectedFile);  
-        reader.onloadend = () => {
-            //uploadImage(reader.result);
-            createProduct({title, description, price, categoryId: category, quantity}, reader.result)
+        reader.onloadend = () => {   
+
+          createProduct({title, description, price, categoryId: category, quantity}, reader.result)          
 
         };
         reader.onerror = () => {
-            console.error('AHHHHHHHH!!');
-            // setErrMsg('something went wrong!');
-        };  
-
-        //createProduct({title, description, price, categoryId: category, quantity})
+          console.error('Something went wrong!')            
+        };         
       }      
     
     setTitle('');
@@ -100,31 +97,6 @@ export const CreateProductFormContainer = ({product})=>{
 
     };
   } 
-
-
-  // const uploadImage = async (base64EncodedImage) => {        
-  //   try {
-
-  //       const fetchData = () => {
-  //           return fetch('http://localhost:3001/api/upload', {
-  //               method: 'POST',
-  //               body: JSON.stringify({ data: base64EncodedImage }),
-  //               headers: { 'Content-Type': 'application/json' },
-  //           })
-  //           .then((response) => response.json())
-  //           .then((data) => console.log(data))
-  //       }
-
-  //       await fetchData();           
-        
-  //       setFileInputState('');
-  //       setPreviewSource('');
-  //       // setSuccessMsg('Image uploaded successfully');
-  //   } catch (err) {
-  //       console.error(err);
-  //       // setErrMsg('Something went wrong!');
-  //   }
-  // };
 
   useEffect(() => {
     if(product &&
@@ -145,7 +117,6 @@ export const CreateProductFormContainer = ({product})=>{
     setEditMode(true)
     }
   }, [product]);
-
   
      
   return (  
@@ -165,10 +136,7 @@ export const CreateProductFormContainer = ({product})=>{
             handleQuantity={handleQuantity}
             handleFileInputChange={handleFileInputChange}            
             fileInputState={fileInputState}
-            previewSource={previewSource}           
-
-        />    
-      
-
+            previewSource={previewSource}   
+        />          
   )
 }
