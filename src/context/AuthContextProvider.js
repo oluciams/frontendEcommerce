@@ -50,8 +50,7 @@ export const AuthContextProvider = ({ children }) => {
 
   useEffect(() => {  
      if (user){
-      handleLogin()  
-       
+      handleLogin()        
      }
     
   },[user]);
