@@ -14,6 +14,7 @@ export const CreateProductFormContainer = ({product})=>{
   const [category, setCategory] = useState('');
   const [quantity, setQuantity] = useState('');
   const [editMode, setEditMode] = useState(false);
+  const [errors, setErrors] = useState('');
 
   // Image States
   const [fileInputState, setFileInputState] = useState('');
@@ -38,16 +39,88 @@ export const CreateProductFormContainer = ({product})=>{
   };
 
   // Product Logic
+  
+  const titleValidator = () => {
+    if (!title || title.length<=4) {
+      setErrors({
+        ...errors,
+        title: true,
+        titleErrorMessage: 'is required - At least 4 characters',
+      });
+    } else {
+      setErrors({
+        ...errors,
+        title: false,
+      });
+    }
+  };
+
+  const descriptionValidator = () => {
+    if (!description || description.length<=8) {
+      setErrors({
+        ...errors,
+        description: true,
+        descriptionErrorMessage: 'is required - At least 8 characters',
+      });
+    } else {
+      setErrors({
+        ...errors,
+        description: false,
+      });
+    }
+  };
+
+  const priceValidator = () => {
+    if (!price) {
+      setErrors({
+        ...errors,
+        price: true,
+        priceErrorMessage: 'is required',
+      });
+    } else {
+      setErrors({
+        ...errors,
+        price: false,
+      });
+    }
+  };
+
+  const quantityValidator = () => {
+    if (!quantity) {
+      setErrors({
+        ...errors,
+        quantity: true,
+        quantityErrorMessage: 'is required',
+      });
+    } else {
+      setErrors({
+        ...errors,
+        quantity: false,
+      });
+    }
+  };
+
   const handleTitle= (e)=>{
-    setTitle(e.target.value)
+    const validtitle = e.target.value
+    setTitle(validtitle)
+    titleValidator()
   }
 
   const handleDescription= (e)=>{
-    setDescription(e.target.value)
+    const validdescription = e.target.value
+    setDescription(validdescription)
+    descriptionValidator()
+
   }
   
+  // const handlePrice= (e)=>{
+  //   setPrice(e.target.value)
+  // }
+
   const handlePrice= (e)=>{
-    setPrice(e.target.value)
+    const validprice = e.target.value
+    setPrice(validprice)
+    priceValidator()
   }
 
   const handleCategory= (e)=>{
@@ -55,8 +128,11 @@ export const CreateProductFormContainer = ({product})=>{
   }
 
   const handleQuantity= (e)=>{
-    setQuantity(e.target.value)
-  } 
+    const validquantity = e.target.value
+    setQuantity(validquantity)
+    quantityValidator()
+
+  }     
 
   // Submit for images and products
 
@@ -128,12 +204,17 @@ export const CreateProductFormContainer = ({product})=>{
             price={price}           
             category={category}
             quantity={quantity}
+            error={errors}
             handleOnSubmit={handleOnSubmit}     
             handleTitle={handleTitle}
+            titleValidator={titleValidator}
             handleDescription={handleDescription}
-            handlePrice={handlePrice}            
+            descriptionValidator={descriptionValidator}
+            handlePrice={handlePrice}
+            priceValidator={priceValidator}            
             handleCategory={handleCategory}
             handleQuantity={handleQuantity}
+            quantityValidator={quantityValidator}
             handleFileInputChange={handleFileInputChange}            
             fileInputState={fileInputState}
             previewSource={previewSource}   

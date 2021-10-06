@@ -18,6 +18,11 @@ export const CreateProductFormView = ({
     handleFileInputChange,    
     fileInputState,
     previewSource,
+    error,
+    titleValidator,
+    descriptionValidator,
+    priceValidator,
+    quantityValidator
    
 
 })=> {
@@ -28,13 +33,15 @@ export const CreateProductFormView = ({
     <Container className="mt-2">  
         <Form onSubmit={handleOnSubmit}>          
           <Form.Group  className="mb-2 col-sm-6 mx-auto">        
-            <Form.Control
+            <Form.Control              
               size="sm"
               type="text"
               placeholder="Title" 
               value={title}
               onChange={handleTitle}                     
-              name='title'/>
+              name='title'
+              onBlur={titleValidator}/>
+              {error.title && <p className= 'text-danger'>{error.titleErrorMessage}</p>}
           </Form.Group>
           <Form.Group className="mb-2 col-sm-6 mx-auto">        
             <Form.Control
@@ -43,18 +50,21 @@ export const CreateProductFormView = ({
              placeholder="Description"
              value={description}
 					   onChange={handleDescription}        
-             name='description'/>
+             name='description'
+             onBlur={descriptionValidator}/>
+             {error.description && <p className= 'text-danger'>{error.descriptionErrorMessage}</p>}
           </Form.Group>
           <Form.Group className="mb-2 col-sm-6 mx-auto">        
             <Form.Control 
               size="sm"
-              type='text'
+              type='number'
               placeholder="$"
               value={price}
 					    onChange={handlePrice}          
-              name='price'/>            
-          </Form.Group>    
-
+              name='price'            
+              onBlur={priceValidator}/>
+              {error.price && <p className= 'text-danger'>{error.priceErrorMessage}</p>}            
+          </Form.Group>   
           <Form.Group className="mb-2 col-sm-6 mx-auto"> 
             <Form.Select
               aria-label="Default select example"              
@@ -62,23 +72,24 @@ export const CreateProductFormView = ({
               type="text"                          
               value={category}
 					    onChange={handleCategory}             
-              name='category'> 
-              <option >- - - - - -</option>
+              name='category'required> 
+              <option >- - - - </option>
               { categories &&
               categories.map(({_id, title}) => 
                  <option key={_id} value={_id}>{title}</option> 
               )}                         
             </Form.Select>           
-          </Form.Group>     
-
+          </Form.Group>  
           <Form.Group className="mb-2 col-sm-6 mx-auto">        
             <Form.Control
              size="sm"
-             type='text'
+             type='number'
              placeholder="Quantity" 
              value={quantity}
 					   onChange={handleQuantity}           
-             name='quantity'/>         
+             name='quantity'
+             onBlur={quantityValidator}/> 
+             {error.quantity && <p className= 'text-danger'>{error.quantityErrorMessage}</p>}        
           </Form.Group>
 
           {/* <Form.Group className="mb-2 col-sm-6 mx-auto">          
@@ -128,13 +139,3 @@ export const CreateProductFormView = ({
     </Container>
   )
 }
-
-
-// CreateTaskFormView.propTypes = {
-//   title: PropTypes.string.isRequired,
-//   description: PropTypes.string.isRequired,
-//   handleDescription: PropTypes.func.isRequired,
-//   handleTitle: PropTypes.func.isRequired,
-// };
-
-
