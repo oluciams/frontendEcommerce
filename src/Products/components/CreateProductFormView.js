@@ -22,7 +22,8 @@ export const CreateProductFormView = ({
     titleValidator,
     descriptionValidator,
     priceValidator,
-    quantityValidator
+    categoryValidator,
+    quantityValidator   
    
 
 })=> {
@@ -67,18 +68,20 @@ export const CreateProductFormView = ({
           </Form.Group>   
           <Form.Group className="mb-2 col-sm-6 mx-auto"> 
             <Form.Select
-              aria-label="Default select example"              
+              // aria-label="Default select example"              
               size="sm"
               type="text"                          
               value={category}
-					    onChange={handleCategory}             
-              name='category'required> 
-              <option >- - - - </option>
-              { categories &&
+					    onChange={handleCategory}
+              onBlur={categoryValidator}             
+              name='category'> 
+              <option></option>
+              {categories &&
               categories.map(({_id, title}) => 
                  <option key={_id} value={_id}>{title}</option> 
               )}                         
-            </Form.Select>           
+            </Form.Select> 
+            {error.category && <p className= 'text-danger'>{error.categoryErrorMessage}</p>}              
           </Form.Group>  
           <Form.Group className="mb-2 col-sm-6 mx-auto">        
             <Form.Control

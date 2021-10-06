@@ -85,6 +85,21 @@ export const CreateProductFormContainer = ({product})=>{
     }
   };
 
+  const categoryValidator = () => {
+    if (category==='') {
+      setErrors({
+        ...errors,
+        category: true,
+        categoryErrorMessage: 'is required',
+      });
+    } else {
+      setErrors({
+        ...errors,
+        category: false,
+      });
+    }
+  };
+
   const quantityValidator = () => {
     if (!quantity) {
       setErrors({
@@ -124,7 +139,9 @@ export const CreateProductFormContainer = ({product})=>{
   }
 
   const handleCategory= (e)=>{
-    setCategory(e.target.value)
+    const validcategory = e.target.value
+    setCategory(validcategory)
+    categoryValidator()
   }
 
   const handleQuantity= (e)=>{
@@ -213,6 +230,7 @@ export const CreateProductFormContainer = ({product})=>{
             handlePrice={handlePrice}
             priceValidator={priceValidator}            
             handleCategory={handleCategory}
+            categoryValidator={categoryValidator}
             handleQuantity={handleQuantity}
             quantityValidator={quantityValidator}
             handleFileInputChange={handleFileInputChange}            
