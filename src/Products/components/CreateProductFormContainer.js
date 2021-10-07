@@ -28,6 +28,7 @@ export const CreateProductFormContainer = ({product})=>{
       previewFile(file);
       setSelectedFile(file);
       setFileInputState(e.target.value);
+      imageValidator()
   };
 
   const previewFile = (file) => {
@@ -115,6 +116,21 @@ export const CreateProductFormContainer = ({product})=>{
     }
   };
 
+  const imageValidator = () => {
+    if (!fileInputState) {
+      setErrors({
+        ...errors,
+        image: true,
+        imageErrorMessage: 'is required',
+      });
+    } else {
+      setErrors({
+        ...errors,
+        image: false,
+      });
+    }
+  };
+
   const handleTitle= (e)=>{
     const validtitle = e.target.value
     setTitle(validtitle)
@@ -126,11 +142,7 @@ export const CreateProductFormContainer = ({product})=>{
     setDescription(validdescription)
     descriptionValidator()
 
-  }
-  
-  // const handlePrice= (e)=>{
-  //   setPrice(e.target.value)
-  // }
+  }  
 
   const handlePrice= (e)=>{
     const validprice = e.target.value
@@ -235,7 +247,8 @@ export const CreateProductFormContainer = ({product})=>{
             quantityValidator={quantityValidator}
             handleFileInputChange={handleFileInputChange}            
             fileInputState={fileInputState}
-            previewSource={previewSource}   
+            previewSource={previewSource}
+            imageValidator={imageValidator}   
         />          
   )
 }

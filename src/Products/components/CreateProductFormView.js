@@ -23,8 +23,8 @@ export const CreateProductFormView = ({
     descriptionValidator,
     priceValidator,
     categoryValidator,
-    quantityValidator   
-   
+    quantityValidator,
+    imageValidator   
 
 })=> {
 
@@ -67,8 +67,7 @@ export const CreateProductFormView = ({
               {error.price && <p className= 'text-danger'>{error.priceErrorMessage}</p>}            
           </Form.Group>   
           <Form.Group className="mb-2 col-sm-6 mx-auto"> 
-            <Form.Select
-              // aria-label="Default select example"              
+            <Form.Select                        
               size="sm"
               type="text"                          
               value={category}
@@ -93,51 +92,32 @@ export const CreateProductFormView = ({
              name='quantity'
              onBlur={quantityValidator}/> 
              {error.quantity && <p className= 'text-danger'>{error.quantityErrorMessage}</p>}        
-          </Form.Group>
-
-          {/* <Form.Group className="mb-2 col-sm-6 mx-auto">          
-            <Form.Control
-              size="sm"
-              type="text"
-              placeholder="url"
-              value={image}
-					    onChange={handleImage}       
-              name='image'/>
-          </Form.Group>  */}
-
+          </Form.Group>          
           <Form.Group className="mb-2 col-sm-6 mx-auto">          
             <Form.Control
               size="sm"
               type="file"             
               value={fileInputState}
 					    onChange={handleFileInputChange}       
-              name='image'/>
-          </Form.Group> 
-{/* 
-          <input
-                    id="fileInput"
-                    type="file"
-                    name="image"
-                    onChange={handleFileInputChange}
-                    value={fileInputState}
-                    className="form-input"
-          /> */}       
-
+              name='image'
+              onBlur={imageValidator}/>
+              {error.image && <p className= 'text-danger'>{error.imageErrorMessage}</p>}
+          </Form.Group>  
+          <Form.Group className="mb-2 col-sm-6 mx-auto text-center">  
+            {previewSource && (
+            <img                                     
+              src={previewSource}
+              alt="chosen"
+              style={{ height: '100px', width: '40%' }}
+            />
+            )}  
+          </Form.Group>  
           <Form.Group className="row d-flex mb-2 col-sm-6 mx-auto"> 
           <Button size="sm" variant="primary" type="submit">
             submit
           </Button>      
           </Form.Group>
-        </Form> 
-
-        {previewSource && (
-                <img
-                    src={previewSource}
-                    alt="chosen"
-                    style={{ height: '100px' }}
-                />
-        )}    
-
+        </Form>         
       <ToastContainer/>  
     </Container>
   )
