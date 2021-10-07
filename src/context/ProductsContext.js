@@ -63,17 +63,24 @@ export const ProductsContextProvider = ({children})=>{
 
   }
 
-  const deleteProduct = async (id)=>{   
-    const newProducts = await products.filter((product)=> product._id !== id)
-    setProducts(newProducts)
-
-    const {status} = await productsApi.delete(`/products/${id}`, {
-        headers: {'authorization': userToken} 
-      }) 
-
-      if (status ===400){
-        fetchData()
-      }
+  const deleteProduct = async (id)=>{
+    try {
+      const newProducts = await products.filter((product)=> product._id !== id)
+      setProducts(newProducts)
+  
+      const {status} = await productsApi.delete(`/products/${id}`, {
+          headers: {'authorization': userToken} 
+        }) 
+  
+        if (status ===400){
+          fetchData()
+        }
+        notify("Deleted product", true) 
+      
+    } catch (error) {
+      notify("Something gone wrong", false)
+      
+    }   
   }
 
   const updateProduct = async(
