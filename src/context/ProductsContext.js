@@ -4,6 +4,7 @@ import { AuthContext } from './AuthContextProvider'
 import { notify } from '../utils/notify'
 
 
+
 export const ProductsContext = createContext();
 
 
@@ -32,7 +33,7 @@ export const ProductsContextProvider = ({children})=>{
     try {
       let cloudinaryImageId
 
-      const fetchData = () => {
+      const uploadImage = () => {
           return fetch('http://localhost:3001/api/upload', {
               method: 'POST',
               body: JSON.stringify({ data: base64EncodedImage }),
@@ -41,7 +42,7 @@ export const ProductsContextProvider = ({children})=>{
           .then((response) => response.json())
           .then((data) => cloudinaryImageId = data.public_id)        
       }
-      await fetchData();    
+      await uploadImage();    
 
 
       product.image = cloudinaryImageId  
@@ -63,22 +64,32 @@ export const ProductsContextProvider = ({children})=>{
 
   }
 
-  const deleteProduct = async (id)=>{
+  const deleteProduct = async (id, image_id)=>{
     try {
+
+      const deleteImage= () => {
+        return fetch(`http://localhost:3001/api/images/${image_id}`, {
+            method: 'DELETE'            
+        })
+        .then((response) => response.json())
+        .then((data) => console.log(data))        
+      }
+
+      await deleteImage();   
+
+
       const newProducts = await products.filter((product)=> product._id !== id)
       setProducts(newProducts)
   
-      const {status} = await productsApi.delete(`/products/${id}`, {
-          headers: {'authorization': userToken} 
-        })   
-        if (status ===400){
-          fetchData()
-        }
+      const {data} = await productsApi.delete(`/products/${id}`, {
+            headers: {'authorization': userToken} 
+      })  
 
-        notify("Deleted product", true) 
+      notify(data.message, true) 
       
-    } catch (error) {
-      notify("Something gone wrong", false)      
+    } catch (err) {    
+      notify(err.response.statusText , false) 
+      fetchData()     
     }   
   }
 

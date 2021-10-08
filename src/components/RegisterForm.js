@@ -15,7 +15,7 @@ export const RegisterForm = ()=>{
 
   const handleSubmitForm = async (values, { resetForm }) => {
     try {       
-      const data = await signupApi.post('/signup', values)           
+      await signupApi.post('/signup', values)           
       resetForm();
       notify("Registered successfully", true)
       history.push("/login")      
@@ -24,7 +24,7 @@ export const RegisterForm = ()=>{
     }    
   };
 
-  return(
+    return(
     <div> 
       <p className="text-center mt-3">Sign Up!</p>
 

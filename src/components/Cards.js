@@ -32,7 +32,7 @@ export const Cards = ({
         </IntlProvider>
         </p>        
         <div className="mt-2">
-          <Button variant='danger'size='sm'onClick={()=>deleteProduct(id)}>Delete</Button>          
+          <Button variant='danger'size='sm'onClick={()=>deleteProduct(id,cardImage)}>Delete</Button>          
           <Button className="m-2" variant='primary' size='sm' onClick={()=>editProduct(id)}>Edit</Button>      
         </div>  
       </div>
