@@ -162,7 +162,18 @@ export const CreateProductFormContainer = ({product})=>{
     setQuantity(validquantity)
     quantityValidator()
 
-  } 
+  }
+  
+  const handleCancel = ()=>{
+    setTitle('')
+    setDescription('')
+    setPrice('')   
+    setCategory('')	
+    setQuantity('')
+    setFileInputState('')
+    setPreviewSource('')
+    setEditMode(false)
+  }
   
     // Submit for images and products
 
@@ -217,7 +228,8 @@ export const CreateProductFormContainer = ({product})=>{
     setTitle(product.title);
     setDescription(product.description);
     setPrice(product.price);    
-    setCategory(product.categoryId)	
+    setCategory(product.categoryId)
+    setFileInputState('')
     setQuantity(product.quantity)
     setEditMode(true)
     }
@@ -234,7 +246,8 @@ export const CreateProductFormContainer = ({product})=>{
             category={category}
             quantity={quantity}
             error={errors}
-            dataLoading={dataLoading}            
+            dataLoading={dataLoading}
+            editMode={editMode}           
             handleOnSubmit={handleOnSubmit}     
             handleTitle={handleTitle}
             titleValidator={titleValidator}
@@ -249,7 +262,8 @@ export const CreateProductFormContainer = ({product})=>{
             handleFileInputChange={handleFileInputChange}            
             fileInputState={fileInputState}
             previewSource={previewSource}
-            imageValidator={imageValidator}   
+            imageValidator={imageValidator}
+            handleCancel={handleCancel}   
         />          
   )
 }

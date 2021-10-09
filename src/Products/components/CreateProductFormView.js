@@ -8,7 +8,8 @@ export const CreateProductFormView = ({
     description,
     price,    
     category, 
-    quantity,    
+    quantity,
+    editMode,    
     handleTitle,
     handleDescription,
     handlePrice,    
@@ -25,14 +26,20 @@ export const CreateProductFormView = ({
     priceValidator,
     categoryValidator,
     quantityValidator,
-    imageValidator   
+    imageValidator,
+    handleCancel  
 
 })=> {
 
   const {categories} =useContext(ProductsContext)
 
   return (
-    <Container className="mt-2">  
+    <Container className="mt-2">
+        { editMode ?  
+          <h4 className="text-center mt-2">Edit product</h4>
+        :
+          <h4 className="text-center mt-2">Add a new product</h4>        
+        }
         <Form onSubmit={handleOnSubmit}>          
           <Form.Group  className="mb-2 col-sm-6 mx-auto">        
             <Form.Control              
@@ -136,7 +143,11 @@ export const CreateProductFormView = ({
                 </Button>
               </Form.Group>               
             }
-            
+            {editMode &&
+            <Form.Group className="row d-flex mb-2 col-sm-6 mx-auto">  
+            <Button variant='danger' size='sm' onClick={()=>handleCancel()}>Cancel</Button>
+            </Form.Group>            
+            }           
         </Form>         
       <ToastContainer/>  
     </Container>

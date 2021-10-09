@@ -15,13 +15,13 @@ export const Products = ()=> {
     const product = products.filter((product)=> product._id === id)[0]      
     setProductToEdit(product)
     
-}
+  }
   
   if(!products) return <h3>Loading . . . </h3>
   
   return (    
     <div>     
-      <h4 className="text-center mt-2">Agregar producto nuevo</h4>
+      
       <CreateProductFormContainer product={productToEdit}/>  
         <Row>  
           {                

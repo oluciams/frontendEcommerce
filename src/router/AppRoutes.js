@@ -33,8 +33,8 @@ import Upload from '../Products/components/Upload';
               <Route path="/upload" component={Upload} />
               <PrivateRoute exact path='/products' component={Products} userToken={userToken}/>
               <Route path='*' component={NotFound}/>             
-            </Switch>
-            <Footer/>
+            </Switch> 
+            <Footer/>          
         </div>
       </Router>
     );

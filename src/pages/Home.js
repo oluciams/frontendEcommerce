@@ -6,7 +6,7 @@ export const Home = () => {
    
 return (    
   <Container fluid>  
-    <h3>Bienvenido</h3>                  
+    <h3 className='text-center mt-2'>Welcome</h3>                  
     <Banner/>                                 
   </Container>      
   )
