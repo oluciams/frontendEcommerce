@@ -14,6 +14,7 @@ export const ProductsContextProvider = ({children})=>{
 
   const [products, setProducts] = useState();
   const [categories, setCategories] = useState();
+  const [dataLoading, setDataLoading] = useState(false);
 
 
   const fetchData = async()=>{    
@@ -30,6 +31,8 @@ export const ProductsContextProvider = ({children})=>{
   
   const createProduct = async(product, base64EncodedImage)=>{
 
+    setDataLoading(true)
+
     try {
       let cloudinaryImageId
 
@@ -42,24 +45,26 @@ export const ProductsContextProvider = ({children})=>{
           .then((response) => response.json())
           .then((data) => cloudinaryImageId = data.public_id)        
       }
-      await uploadImage();    
-
+      await uploadImage(); 
 
       product.image = cloudinaryImageId  
       console.log("soy product", product)
 
-      const {data} = await productsApi.post('/products', product, {
+      const {data} = await productsApi.post('/products444', product, {
         headers: {
           'authorization': userToken 
-        }      
+        }              
       })
 
-      setProducts([...products, data])   
-      notify("Product created", true)          
+      setProducts([...products, data])      
+      notify("Product created", true)      
+      setDataLoading(false)    
+            
         
     } catch (err) {
         console.error(err);     
-        notify("Something gone wrong", false) 
+        notify("Something gone wrong", false)
+        setDataLoading(false) 
     }
 
   }
@@ -143,10 +148,12 @@ export const ProductsContextProvider = ({children})=>{
 
   const value ={
     products,  
-    categories,     
+    categories,
+    dataLoading,     
     createProduct,
     deleteProduct,
     updateProduct
+
   }
 
   return (

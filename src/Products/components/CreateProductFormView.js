@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Form, Button, Container} from 'react-bootstrap';
+import { Form, Button, Container, Spinner} from 'react-bootstrap';
 import { ProductsContext } from '../../context/ProductsContext';
 import { ToastContainer } from 'react-toastify';
 
@@ -19,6 +19,7 @@ export const CreateProductFormView = ({
     fileInputState,
     previewSource,
     error,
+    dataLoading,    
     titleValidator,
     descriptionValidator,
     priceValidator,
@@ -112,11 +113,30 @@ export const CreateProductFormView = ({
             />
             )}  
           </Form.Group>  
-          <Form.Group className="row d-flex mb-2 col-sm-6 mx-auto"> 
-          <Button size="sm" variant="primary" type="submit">
-            submit
-          </Button>      
-          </Form.Group>
+            
+            { dataLoading ? 
+                     
+              <Form.Group className="row d-flex mb-2 col-sm-6 mx-auto">
+                <Button variant="primary" disabled>
+                  <Spinner
+                    as="span"
+                    animation="grow"
+                    size="sm"
+                    role="status"
+                    aria-hidden="true"
+                  />
+                  Loading...
+                </Button>                
+              </Form.Group>
+            
+            :
+              <Form.Group className="row d-flex mb-2 col-sm-6 mx-auto">             
+                <Button size="sm" variant="primary" type="submit">
+                  submit
+                </Button>
+              </Form.Group>               
+            }
+            
         </Form>         
       <ToastContainer/>  
     </Container>

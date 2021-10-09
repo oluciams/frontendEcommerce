@@ -5,7 +5,7 @@ import {CreateProductFormView} from '../components/CreateProductFormView';
 
 export const CreateProductFormContainer = ({product})=>{
 
-  const {createProduct, updateProduct} =useContext(ProductsContext)
+  const {createProduct, updateProduct, dataLoading} =useContext(ProductsContext)
 
   // Product States
   const [title, setTitle] = useState('');
@@ -15,6 +15,7 @@ export const CreateProductFormContainer = ({product})=>{
   const [quantity, setQuantity] = useState('');
   const [editMode, setEditMode] = useState(false);
   const [errors, setErrors] = useState('');
+  
 
   // Image States
   const [fileInputState, setFileInputState] = useState('');
@@ -161,13 +162,13 @@ export const CreateProductFormContainer = ({product})=>{
     setQuantity(validquantity)
     quantityValidator()
 
-  }     
-
-  // Submit for images and products
+  } 
+  
+    // Submit for images and products
 
   const handleOnSubmit = (e) => {
 		e.preventDefault()
-
+    
     // Product
     if (title && description && price && category && quantity ) {
       if(editMode){       
@@ -184,7 +185,7 @@ export const CreateProductFormContainer = ({product})=>{
         reader.onloadend = () => {   
 
           createProduct({title, description, price, categoryId: category, quantity}, reader.result)          
-
+    
         };
         reader.onerror = () => {
           console.error('Something went wrong!')            
@@ -196,7 +197,6 @@ export const CreateProductFormContainer = ({product})=>{
     setPrice('');   
     setCategory('')	
     setQuantity('')
-
     setFileInputState('');
     setPreviewSource('');
 
@@ -234,6 +234,7 @@ export const CreateProductFormContainer = ({product})=>{
             category={category}
             quantity={quantity}
             error={errors}
+            dataLoading={dataLoading}            
             handleOnSubmit={handleOnSubmit}     
             handleTitle={handleTitle}
             titleValidator={titleValidator}
