@@ -18,6 +18,22 @@ export const signupApi= axios.create({
     timeout:5000
 })
 
+export const cloudinaryApi= axios.create({    
+    baseURL: 'http://localhost:3001',   
+    //baseURL:'https://ancient-brook-80759.herokuapp.com',
+    timeout:2000
+})
+
+
+
+
+
+
+
+
+
+
+
 
 // // Send a POST request
 // axios({

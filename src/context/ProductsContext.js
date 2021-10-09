@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import {productsApi} from '../utils/api'
+import {productsApi, cloudinaryApi} from '../utils/api'
 import { AuthContext } from './AuthContextProvider'
 import { notify } from '../utils/notify'
 
@@ -24,17 +24,19 @@ export const ProductsContextProvider = ({children})=>{
 
   const fetchCategories = async()=>{
     const {data} = await productsApi.get('/categories')
-    setCategories(data)  
-    console.log("categories", data)  
+    setCategories(data)      
   }
 
+  const deleteImage= async(image_id) => {
+    await cloudinaryApi.delete(`/api/images/${image_id}`)    
+  }
   
   const createProduct = async(product, base64EncodedImage)=>{
 
     setDataLoading(true)
+    let cloudinaryImageId
 
     try {
-      let cloudinaryImageId
 
       const uploadImage = () => {
           return fetch('http://localhost:3001/api/upload', {
@@ -47,10 +49,9 @@ export const ProductsContextProvider = ({children})=>{
       }
       await uploadImage(); 
 
-      product.image = cloudinaryImageId  
-      console.log("soy product", product)
+      product.image = cloudinaryImageId        
 
-      const {data} = await productsApi.post('/products444', product, {
+      const {data} = await productsApi.post('/products', product, {
         headers: {
           'authorization': userToken 
         }              
@@ -61,27 +62,18 @@ export const ProductsContextProvider = ({children})=>{
       setDataLoading(false)    
             
         
-    } catch (err) {
-        console.error(err);     
-        notify("Something gone wrong", false)
+    } catch (err) {        
+        deleteImage(cloudinaryImageId) 
+        err.response.data.code ===11000 ? notify('Title repeated', false)
+          : notify(err.response.statusText, false)          
         setDataLoading(false) 
     }
 
   }
 
   const deleteProduct = async (id, image_id)=>{
-    try {
-
-      const deleteImage= () => {
-        return fetch(`http://localhost:3001/api/images/${image_id}`, {
-            method: 'DELETE'            
-        })
-        .then((response) => response.json())
-        .then((data) => console.log(data))        
-      }
-
-      await deleteImage();   
-
+    try {      
+      await deleteImage(image_id);  
 
       const newProducts = await products.filter((product)=> product._id !== id)
       setProducts(newProducts)

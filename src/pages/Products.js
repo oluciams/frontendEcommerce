@@ -9,13 +9,7 @@ export const Products = ()=> {
 
   const {products, deleteProduct} = useContext(ProductsContext)  
   
-  const [productToEdit, setProductToEdit] = useState();
-
-  // const handleEditProduct = (id)=>{      
-  //     const product = products.filter((product)=> product._id === id)[0]      
-  //     setProductToEdit(product)
-      
-  // }
+  const [productToEdit, setProductToEdit] = useState();  
 
   const editProduct = (id)=>{      
     const product = products.filter((product)=> product._id === id)[0]      
@@ -27,7 +21,7 @@ export const Products = ()=> {
   
   return (    
     <div>     
-      <h3 className="text-center">Agregar un producto nuevo</h3>
+      <h4 className="text-center mt-2">Agregar producto nuevo</h4>
       <CreateProductFormContainer product={productToEdit}/>  
         <Row>  
           {                
@@ -39,8 +33,7 @@ export const Products = ()=> {
                 cardTitle={title}
                 cardPrice={price}
                 cardImage={image}                
-                deleteProduct={deleteProduct}
-                // editProduct={handleEditProduct}
+                deleteProduct={deleteProduct}               
                 editProduct={editProduct}/>               
               )
           }
