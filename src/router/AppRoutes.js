@@ -20,7 +20,7 @@ import Upload from '../Products/components/Upload';
   
   export const AppRoutes = () => {
 
-    const {userToken,logout } = useContext(AuthContext)
+    const {userToken} = useContext(AuthContext)
 
     return (     
       <Router>

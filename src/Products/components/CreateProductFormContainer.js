@@ -186,7 +186,7 @@ export const CreateProductFormContainer = ({product})=>{
    
         updateProduct(product._id, ({        
           title, description, price, categoryId: category, quantity}))
-          setEditMode(false)
+        setEditMode(false)
 
       } else { 
         

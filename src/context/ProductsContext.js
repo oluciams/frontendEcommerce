@@ -99,7 +99,7 @@ export const ProductsContextProvider = ({children})=>{
   categoryId: categoryIdEdited,
   quantity: quantityEdited})=>{
     
-      const newProducts = await products.map((product)=>{
+    const newProducts = await products.map((product)=>{
       if(product._id === id){
         
         return {... product,

@@ -29,27 +29,30 @@ export const AuthContextProvider = ({ children }) => {
     setRedirect(false)
   } 
 
-  useEffect(async () => {  
-     if (user){
-       try{
-         const apiData= await loginApi.post('/login', user)          
-         const {data} = apiData            
-         setUserToken(data)    
-         hookStorage.setItem('token', data)  
-         notify("Login successfull", true) 
-         setTimeout(() => {
-          setRedirect(true)
-        }, 2000);
-         
-       }  
-       catch (error) { 
-         console.log(error)          
-         notify("Something gone wrong", false)   
-       }          
-     }
+  const handleLogin = async()=>{ 
     
-  },[user]);
+    try{
+      const apiData= await loginApi.post('/login', user)     
+      const {data} = apiData            
+      setUserToken(data)    
+      hookStorage.setItem('token', data)  
+      notify("Login successfull", true) 
+      setTimeout(() => {
+        setRedirect(true)
+        }, 2000);       
+    }
+    catch (error) {                  
+         notify(error.response.data.message, false) 
+    }         
+    
+  }        
 
+  useEffect(() => {  
+     if (user){
+      handleLogin()       
+     }
+
+  },[user]);
   
   useEffect(() => { 
     if (token)
@@ -61,6 +64,7 @@ export const AuthContextProvider = ({ children }) => {
     userToken,
     logout, 
     redirect,
+    handleLogin,
     resetRedirect  
   }
 
