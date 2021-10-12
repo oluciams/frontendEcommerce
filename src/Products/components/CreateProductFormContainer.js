@@ -12,6 +12,7 @@ export const CreateProductFormContainer = ({product})=>{
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
   const [category, setCategory] = useState('');
+  const [image, setImage] = useState('');
   const [quantity, setQuantity] = useState('');
   const [editMode, setEditMode] = useState(false);
   const [errors, setErrors] = useState('');
@@ -185,7 +186,7 @@ export const CreateProductFormContainer = ({product})=>{
       if(editMode){       
    
         updateProduct(product._id, ({        
-          title, description, price, categoryId: category, quantity}))
+          title, description, price, categoryId: category, quantity, image }))
         setEditMode(false)
 
       } else { 
@@ -222,14 +223,13 @@ export const CreateProductFormContainer = ({product})=>{
         product.image &&
         product.categoryId &&
         product.quantity
-    ){              
-
-
+    )
+    {   
     setTitle(product.title);
     setDescription(product.description);
     setPrice(product.price);    
     setCategory(product.categoryId)
-    setFileInputState('')
+    setImage(product.image)
     setQuantity(product.quantity)
     setEditMode(true)
     }

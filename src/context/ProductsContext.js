@@ -100,16 +100,13 @@ export const ProductsContextProvider = ({children})=>{
   quantity: quantityEdited})=>{
     
     const newProducts = await products.map((product)=>{
-      if(product._id === id){
-        
-        return {... product,
-          title: titleEdited,
+      if(product._id === id)
+      {return {... product, title: titleEdited,
           description: descriptionEdited,
           price: priceEdited,
           image:imageEdited,
           categoryId: categoryIdEdited,
           quantity: quantityEdited}
-
       } else{
         return product
       }

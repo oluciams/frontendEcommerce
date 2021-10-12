@@ -101,16 +101,29 @@ export const CreateProductFormView = ({
              onBlur={quantityValidator}/> 
              {error.quantity && <p className= 'text-danger'>{error.quantityErrorMessage}</p>}        
           </Form.Group>          
-          <Form.Group className="mb-2 col-sm-6 mx-auto">          
-            <Form.Control
-              size="sm"
-              type="file"             
-              value={fileInputState}
-					    onChange={handleFileInputChange}       
-              name='image'
-              onBlur={imageValidator}/>
-              {error.image && <p className= 'text-danger'>{error.imageErrorMessage}</p>}
-          </Form.Group>  
+          {editMode ?         
+            <Form.Group className="mb-2 col-sm-6 mx-auto"> 
+              <Form.Control
+                size="sm"
+                type="file"             
+                value={fileInputState}
+                onChange={handleFileInputChange}       
+                name='image'                
+              />                
+            </Form.Group>          
+            :
+            <Form.Group className="mb-2 col-sm-6 mx-auto">    
+              <Form.Control
+                size="sm"
+                type="file"             
+                value={fileInputState}
+                onChange={handleFileInputChange}       
+                name='image'
+                onBlur={imageValidator}             
+               /> 
+               {error.image && <p className= 'text-danger'>{error.imageErrorMessage}</p>}             
+            </Form.Group>  
+          }  
           <Form.Group className="mb-2 col-sm-6 mx-auto text-center">  
             {previewSource && (
             <img                                     

@@ -51,7 +51,6 @@ export const AuthContextProvider = ({ children }) => {
      if (user){
       handleLogin()       
      }
-
   },[user]);
   
   useEffect(() => { 
@@ -62,6 +61,7 @@ export const AuthContextProvider = ({ children }) => {
   const value = {
     saveFormData,
     userToken,
+    token,
     logout, 
     redirect,
     handleLogin,
