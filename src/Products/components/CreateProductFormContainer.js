@@ -183,12 +183,25 @@ export const CreateProductFormContainer = ({product})=>{
     
     // Product
     if (title && description && price && category && quantity ) {
-      if(editMode){       
-   
-        updateProduct(product._id, ({        
-          title, description, price, categoryId: category, quantity, image }))
-        setEditMode(false)
 
+      if(editMode){ 
+
+        if (!selectedFile) return;
+        const reader = new FileReader();
+        reader.readAsDataURL(selectedFile);  
+        reader.onloadend = () => { 
+
+          updateProduct(product._id, ({        
+            title, description, price, categoryId: category, quantity }, reader.result))
+            console.log(reader.result)
+          setEditMode(false)
+          
+        };
+        reader.onerror = () => {
+          console.error('Something went wrong!')            
+        };               
+   
+        
       } else { 
         
         if (!selectedFile) return;
@@ -267,3 +280,41 @@ export const CreateProductFormContainer = ({product})=>{
         />          
   )
 }
+
+
+// const handleOnSubmit = (e) => {
+//   e.preventDefault()
+  
+//   // Product
+//   if (title && description && price && category && quantity ) {
+//     if(editMode){       
+ 
+//       updateProduct(product._id, ({        
+//         title, description, price, categoryId: category, quantity, image }))
+//       setEditMode(false)
+
+//     } else { 
+      
+//       if (!selectedFile) return;
+//       const reader = new FileReader();
+//       reader.readAsDataURL(selectedFile);  
+//       reader.onloadend = () => {   
+
+//         createProduct({title, description, price, categoryId: category, quantity}, reader.result)          
+  
+//       };
+//       reader.onerror = () => {
+//         console.error('Something went wrong!')            
+//       };         
+//     }      
+  
+//   setTitle('');
+//   setDescription('');
+//   setPrice('');   
+//   setCategory('')	
+//   setQuantity('')
+//   setFileInputState('');
+//   setPreviewSource('');
+
+//   };
+// } 
