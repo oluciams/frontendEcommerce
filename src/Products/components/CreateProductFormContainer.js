@@ -5,7 +5,7 @@ import {CreateProductFormView} from '../components/CreateProductFormView';
 
 export const CreateProductFormContainer = ({product})=>{
 
-  const {createProduct, updateProduct, dataLoading} =useContext(ProductsContext)
+  const {createProduct, updateProduct, dataLoading, uploadImage2} =useContext(ProductsContext)
 
   // Product States
   const [title, setTitle] = useState('');
@@ -16,12 +16,14 @@ export const CreateProductFormContainer = ({product})=>{
   const [quantity, setQuantity] = useState('');
   const [editMode, setEditMode] = useState(false);
   const [errors, setErrors] = useState('');
+
+
   
 
   // Image States
   const [fileInputState, setFileInputState] = useState('');
   const [previewSource, setPreviewSource] = useState('');
-  const [selectedFile, setSelectedFile] = useState();
+  const [selectedFile, setSelectedFile] = useState(''); // imagen desde el formulario
 
   // Image  logic
 
@@ -175,8 +177,25 @@ export const CreateProductFormContainer = ({product})=>{
     setPreviewSource('')
     setEditMode(false)
   }
+
+  function convertImageTo64 (selectedFile){
+    return new Promise ((resolve, reject) => {
+      console.log("aca voy")
+      const reader = new FileReader();
+      reader.readAsDataURL(selectedFile);  
+      reader.onloadend = async() => {  
+        //console.log(reader.result)      
+        resolve(reader.result) 
+      };
+      reader.onerror = () => {        
+        reject(console.error('Something went wrong! into convertImageTo64') )           
+      }; 
+
+    })
+  };
+
   
-    // Submit for images and products
+  // Submit for images and products
 
   const handleOnSubmit = (e) => {
 		e.preventDefault()
@@ -186,35 +205,70 @@ export const CreateProductFormContainer = ({product})=>{
 
       if(editMode){ 
 
-        if (!selectedFile) return;
-        const reader = new FileReader();
-        reader.readAsDataURL(selectedFile);  
-        reader.onloadend = () => { 
+        if (selectedFile){
 
+
+          async function waitUploadImageAndUpdateProduct(){          
+            let base64EncodedImage = await convertImageTo64(selectedFile)  
+            let imagePublicId = await uploadImage2(base64EncodedImage)
+            console.log(imagePublicId)
+            updateProduct(product._id, ({        
+              title, description, price, categoryId: category, quantity, imagePublicId }))          
+            setEditMode(false)
+          };
+  
+          waitUploadImageAndUpdateProduct()
+
+    
+
+           
+           
+  
+            // updateProduct(product._id, ({        
+            //   title, description, price, categoryId: category, quantity, image: "" }))
+            //   // console.log(reader.result)
+            // setEditMode(false)
+            
+           
+        } else {
           updateProduct(product._id, ({        
-            title, description, price, categoryId: category, quantity }, reader.result))
-            console.log(reader.result)
+            title, description, price, categoryId: category, quantity, image }))          
           setEditMode(false)
+        }
+        
+
+
+        // if (!selectedFile) return;
+        // const reader = new FileReader();
+        // reader.readAsDataURL(selectedFile);  
+        // reader.onloadend = () => { 
+
+        //   updateProduct(product._id, ({        
+        //     title, description, price, categoryId: category, quantity, image }))
+        //     console.log(reader.result)
+        //   setEditMode(false)
           
-        };
-        reader.onerror = () => {
-          console.error('Something went wrong!')            
-        };               
+        // };
+        // reader.onerror = () => {
+        //   console.error('Something went wrong!')            
+        // };   
+        
+        // updateProduct(product._id, ({        
+        //   title, description, price, categoryId: category, quantity, image }))          
+        // setEditMode(false)
    
         
       } else { 
         
         if (!selectedFile) return;
-        const reader = new FileReader();
-        reader.readAsDataURL(selectedFile);  
-        reader.onloadend = () => {   
 
-          createProduct({title, description, price, categoryId: category, quantity}, reader.result)          
-    
+        async function waitImageEncodeAndCreateProduct(){          
+          let base64EncodedImage = await convertImageTo64(selectedFile)          
+          createProduct({title, description, price, categoryId: category, quantity}, base64EncodedImage)   
         };
-        reader.onerror = () => {
-          console.error('Something went wrong!')            
-        };         
+
+        waitImageEncodeAndCreateProduct()
+            
       }      
     
     setTitle('');
