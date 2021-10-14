@@ -15,11 +15,12 @@ import { Products } from '../pages/Products';
 import { AuthContext } from '../context/AuthContextProvider';
 import { RegisterForm } from '../components/RegisterForm';
 import { LoginForm } from '../components/LoginForm';
+import Upload from '../Products/components/Upload';
 
   
   export const AppRoutes = () => {
 
-    const {userToken,logout } = useContext(AuthContext)
+    const {userToken} = useContext(AuthContext)
 
     return (     
       <Router>
@@ -29,10 +30,11 @@ import { LoginForm } from '../components/LoginForm';
               <Route path="/" exact component={Home} /> 
               <Route path="/register" component={RegisterForm} />              
               <Route path="/login" component={LoginForm} />
+              <Route path="/upload" component={Upload} />
               <PrivateRoute exact path='/products' component={Products} userToken={userToken}/>
               <Route path='*' component={NotFound}/>             
-            </Switch>
-            <Footer/>
+            </Switch> 
+            <Footer/>          
         </div>
       </Router>
     );

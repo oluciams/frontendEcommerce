@@ -6,6 +6,5 @@ export const productSchema= yup.object ({
     price: yup.number().required().positive().integer(),
     image: yup.string().required(),
     categoryId: yup.string().required(),
-    quantity: yup.number().required().positive().integer()    
-    
+    quantity: yup.number().required().positive().integer()      
 })
