@@ -213,7 +213,7 @@ export const CreateProductFormContainer = ({product})=>{
             let imagePublicId = await uploadImage2(base64EncodedImage)
             console.log(imagePublicId)
             updateProduct(product._id, ({        
-              title, description, price, categoryId: category, quantity, imagePublicId }))          
+              title, description, price, categoryId: category, quantity, image: imagePublicId }))          
             setEditMode(false)
           };
   
