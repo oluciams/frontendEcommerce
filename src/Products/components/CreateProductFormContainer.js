@@ -190,7 +190,6 @@ export const CreateProductFormContainer = ({product})=>{
       reader.onerror = () => {        
         reject(console.error('Something went wrong! into convertImageTo64') )           
       }; 
-
     })
   };
   
