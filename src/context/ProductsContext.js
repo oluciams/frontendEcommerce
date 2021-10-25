@@ -17,6 +17,7 @@ export const ProductsContextProvider = ({children})=>{
   const [dataLoading, setDataLoading] = useState(false);
 
 
+
   const fetchData = async()=>{    
     const {data} = await productsApi.get('/products')
     setProducts(data)    
@@ -31,26 +32,25 @@ export const ProductsContextProvider = ({children})=>{
     await cloudinaryApi.delete(`/api/images/${image_id}`)    
   }
   
-  const createProduct = async(product, base64EncodedImage)=>{
+  function uploadImage (base64EncodedImage) {
+    return new Promise ((resolve, reject) => {
+
+    fetch('http://localhost:3001/api/upload', {
+        method: 'POST',
+        body: JSON.stringify({ data: base64EncodedImage }),
+        headers: { 'Content-Type': 'application/json' },
+    })
+    .then((response) => response.json())
+    .then((data) => resolve (data.public_id))
+    })
+           
+  }
+  
+  const createProduct = async(product)=>{
 
     setDataLoading(true)
-    let cloudinaryImageId
-
+   
     try {
-
-      const uploadImage = () => {
-          return fetch('http://localhost:3001/api/upload', {
-              method: 'POST',
-              body: JSON.stringify({ data: base64EncodedImage }),
-              headers: { 'Content-Type': 'application/json' },
-          })
-          .then((response) => response.json())
-          .then((data) => cloudinaryImageId = data.public_id)        
-      }
-      await uploadImage(); 
-
-      product.image = cloudinaryImageId        
-
       const {data} = await productsApi.post('/products', product, {
         headers: {
           'authorization': userToken 
@@ -59,16 +59,14 @@ export const ProductsContextProvider = ({children})=>{
 
       setProducts([...products, data])      
       notify("Product created", true)      
-      setDataLoading(false)    
-            
+      setDataLoading(false)                
         
     } catch (err) {        
-        deleteImage(cloudinaryImageId) 
+        deleteImage(product.image) 
         err.response.data.code ===11000 ? notify('Title repeated', false)
           : notify(err.response.statusText, false)          
         setDataLoading(false) 
-    }
-
+   }
   }
 
   const deleteProduct = async (id, image_id)=>{
@@ -98,10 +96,18 @@ export const ProductsContextProvider = ({children})=>{
   image:imageEdited,
   categoryId: categoryIdEdited,
   quantity: quantityEdited})=>{
+
+    console.log("estoy en update Product nuevo Pid",{imageEdited})
+
     
     const newProducts = await products.map((product)=>{
-      if(product._id === id)
-      {return {... product, title: titleEdited,
+      if(product._id === id)     
+      {
+      console.log("product.image ",product.image)
+      console.log("image edited desde se igual a nuevo Pid ",{imageEdited})
+        
+        return {...product,
+          title: titleEdited,
           description: descriptionEdited,
           price: priceEdited,
           image:imageEdited,
@@ -141,7 +147,8 @@ export const ProductsContextProvider = ({children})=>{
     dataLoading,     
     createProduct,
     deleteProduct,
-    updateProduct
+    updateProduct,
+    uploadImage
 
   }
 

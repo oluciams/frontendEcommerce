@@ -3,6 +3,7 @@ import { Row } from 'react-bootstrap';
 import { ProductsContext } from '../context/ProductsContext';
 import { CardsHome } from './CardsHome';
 
+
 export const Banner = () => {
 
     const { products} = useContext(ProductsContext)
@@ -20,10 +21,9 @@ export const Banner = () => {
                  cardTitle={title}
                  cardPrice={price}
                  cardImage={image}
-                 variant={'primary'} text={'Agregar'} color='blue'/>                              
+                 variant={'primary'} text={'Ver Producto'} color='blue'/>                              
                 )
-            }        
-         </Row> 
-        
+            }               
+         </Row>  
     )
 }

@@ -11,7 +11,9 @@ export const CardsHome = ({
     variant,
     text,
     color    
-   }) => {        
+    
+   }) => { 
+     
     return (               
       <div className="card mx-auto my-3" key={cardKey} style={{ width: '12rem' }}>        
         <Image
@@ -29,7 +31,7 @@ export const CardsHome = ({
           <FormattedNumber value={cardPrice} style="currency" currency="USD" />      
           </IntlProvider>
           </p>                    
-          <Btn variant={variant} text={text} color={color} />        
+          <Btn variant={variant} text={text} color={color} />           
         </div>
       </div>
     )
