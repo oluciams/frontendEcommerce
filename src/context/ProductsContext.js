@@ -31,8 +31,8 @@ export const ProductsContextProvider = ({children})=>{
   const deleteImage= async(image_id) => {
     await cloudinaryApi.delete(`/api/images/${image_id}`)    
   }
-
-  function uploadImage2 (base64EncodedImage) {
+  
+  function uploadImage (base64EncodedImage) {
     return new Promise ((resolve, reject) => {
 
     fetch('http://localhost:3001/api/upload', {
@@ -46,26 +46,11 @@ export const ProductsContextProvider = ({children})=>{
            
   }
   
-  const createProduct = async(product, base64EncodedImage)=>{
+  const createProduct = async(product)=>{
 
     setDataLoading(true)
-    let cloudinaryImageId
-
+   
     try {
-
-      const uploadImage = () => {
-          return fetch('http://localhost:3001/api/upload', {
-              method: 'POST',
-              body: JSON.stringify({ data: base64EncodedImage }),
-              headers: { 'Content-Type': 'application/json' },
-          })
-          .then((response) => response.json())
-          .then((data) => cloudinaryImageId = data.public_id)        
-      }
-      await uploadImage(); 
-
-      product.image = cloudinaryImageId        
-
       const {data} = await productsApi.post('/products', product, {
         headers: {
           'authorization': userToken 
@@ -74,16 +59,14 @@ export const ProductsContextProvider = ({children})=>{
 
       setProducts([...products, data])      
       notify("Product created", true)      
-      setDataLoading(false)    
-            
+      setDataLoading(false)                
         
     } catch (err) {        
-        deleteImage(cloudinaryImageId) 
+        deleteImage(product.image) 
         err.response.data.code ===11000 ? notify('Title repeated', false)
           : notify(err.response.statusText, false)          
         setDataLoading(false) 
-    }
-
+   }
   }
 
   const deleteProduct = async (id, image_id)=>{
@@ -123,7 +106,7 @@ export const ProductsContextProvider = ({children})=>{
       console.log("product.image ",product.image)
       console.log("image edited desde se igual a nuevo Pid ",{imageEdited})
         
-        return {... product,
+        return {...product,
           title: titleEdited,
           description: descriptionEdited,
           price: priceEdited,
@@ -165,7 +148,7 @@ export const ProductsContextProvider = ({children})=>{
     createProduct,
     deleteProduct,
     updateProduct,
-    uploadImage2
+    uploadImage
 
   }
 
