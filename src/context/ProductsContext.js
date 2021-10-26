@@ -126,7 +126,9 @@ export const ProductsContextProvider = ({children})=>{
         headers: {
         'authorization': userToken
         } 
-      })          
+      })
+      setDataLoading(false)
+      notify("Product edited", true)       
       if (status === 403){
         fetchData()
       }

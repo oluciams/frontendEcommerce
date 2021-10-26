@@ -205,7 +205,8 @@ export const CreateProductFormContainer = ({product})=>{
 
         if (selectedFile){
 
-          async function waitUploadImageAndUpdateProduct(){          
+          async function waitUploadImageAndUpdateProduct(){  
+            changeDataLoading()       
             let base64EncodedImage = await convertImageTo64(selectedFile)  
             let imagePublicId = await uploadImage(base64EncodedImage)
             
@@ -300,41 +301,3 @@ export const CreateProductFormContainer = ({product})=>{
         />          
   )
 }
-
-
-// const handleOnSubmit = (e) => {
-//   e.preventDefault()
-  
-//   // Product
-//   if (title && description && price && category && quantity ) {
-//     if(editMode){       
- 
-//       updateProduct(product._id, ({        
-//         title, description, price, categoryId: category, quantity, image }))
-//       setEditMode(false)
-
-//     } else { 
-      
-//       if (!selectedFile) return;
-//       const reader = new FileReader();
-//       reader.readAsDataURL(selectedFile);  
-//       reader.onloadend = () => {   
-
-//         createProduct({title, description, price, categoryId: category, quantity}, reader.result)          
-  
-//       };
-//       reader.onerror = () => {
-//         console.error('Something went wrong!')            
-//       };         
-//     }      
-  
-//   setTitle('');
-//   setDescription('');
-//   setPrice('');   
-//   setCategory('')	
-//   setQuantity('')
-//   setFileInputState('');
-//   setPreviewSource('');
-
-//   };
-// } 

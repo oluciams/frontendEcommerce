@@ -101,8 +101,9 @@ export const CreateProductFormView = ({
              onBlur={quantityValidator}/> 
              {error.quantity && <p className= 'text-danger'>{error.quantityErrorMessage}</p>}        
           </Form.Group>          
-          {editMode ?         
-            <Form.Group className="mb-2 col-sm-6 mx-auto"> 
+          {editMode ?  
+                  
+            <Form.Group className="mb-2 col-sm-6 mx-auto">            
               <Form.Control
                 size="sm"
                 type="file"             
@@ -112,7 +113,7 @@ export const CreateProductFormView = ({
               />                
             </Form.Group>          
             :
-            <Form.Group className="mb-2 col-sm-6 mx-auto">    
+            <Form.Group className="mb-2 col-sm-6 mx-auto">             
               <Form.Control
                 size="sm"
                 type="file"             
