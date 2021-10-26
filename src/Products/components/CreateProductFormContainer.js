@@ -5,7 +5,7 @@ import {CreateProductFormView} from '../components/CreateProductFormView';
 
 export const CreateProductFormContainer = ({product})=>{
 
-  const {createProduct, updateProduct, dataLoading, uploadImage} =useContext(ProductsContext)
+  const {createProduct, updateProduct, dataLoading, changeDataLoading, uploadImage} =useContext(ProductsContext)
 
   // Product States
   const [title, setTitle] = useState('');
@@ -180,7 +180,7 @@ export const CreateProductFormContainer = ({product})=>{
 
   function convertImageTo64 (selectedFile){
     return new Promise ((resolve, reject) => {
-      console.log("aca voy")
+     
       const reader = new FileReader();
       reader.readAsDataURL(selectedFile);  
       reader.onloadend = async() => {  
@@ -226,7 +226,8 @@ export const CreateProductFormContainer = ({product})=>{
         
         if (!selectedFile) return;
 
-        async function waitImageEncodeAndCreateProduct(){          
+        async function waitImageEncodeAndCreateProduct(){ 
+          changeDataLoading()
           let base64EncodedImage = await convertImageTo64(selectedFile)
           let imagePublicId = await uploadImage(base64EncodedImage)          
           createProduct({title, description, price, categoryId: category, quantity, image: imagePublicId})   

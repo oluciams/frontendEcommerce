@@ -16,7 +16,9 @@ export const ProductsContextProvider = ({children})=>{
   const [categories, setCategories] = useState();
   const [dataLoading, setDataLoading] = useState(false);
 
-
+  const changeDataLoading = ()=>{
+    setDataLoading(true)
+  }
 
   const fetchData = async()=>{    
     const {data} = await productsApi.get('/products')
@@ -46,11 +48,11 @@ export const ProductsContextProvider = ({children})=>{
            
   }
   
-  const createProduct = async(product)=>{
-
-    setDataLoading(true)
-   
+  const createProduct = async(product)=>{    
     try {
+      console.log ("loading before", dataLoading)
+     // setDataLoading(true)
+      
       const {data} = await productsApi.post('/products', product, {
         headers: {
           'authorization': userToken 
@@ -60,7 +62,7 @@ export const ProductsContextProvider = ({children})=>{
       setProducts([...products, data])      
       notify("Product created", true)      
       setDataLoading(false)                
-        
+      console.log ("loading after", dataLoading)
     } catch (err) {        
         deleteImage(product.image) 
         err.response.data.code ===11000 ? notify('Title repeated', false)
@@ -97,16 +99,10 @@ export const ProductsContextProvider = ({children})=>{
   categoryId: categoryIdEdited,
   quantity: quantityEdited})=>{
 
-    console.log("estoy en update Product nuevo Pid",{imageEdited})
-
-    
-    const newProducts = await products.map((product)=>{
+      const newProducts = await products.map((product)=>{
       if(product._id === id)     
       {
-      console.log("product.image ",product.image)
-      console.log("image edited desde se igual a nuevo Pid ",{imageEdited})
-        
-        return {...product,
+          return {...product,
           title: titleEdited,
           description: descriptionEdited,
           price: priceEdited,
@@ -148,8 +144,8 @@ export const ProductsContextProvider = ({children})=>{
     createProduct,
     deleteProduct,
     updateProduct,
-    uploadImage
-
+    uploadImage,
+    changeDataLoading
   }
 
   return (
