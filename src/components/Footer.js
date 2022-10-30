@@ -1,5 +1,6 @@
 import { Container} from 'react-bootstrap';
 import { Navbar} from 'react-bootstrap';
+import './footer.css';
 
 export const Footer = () => {
    

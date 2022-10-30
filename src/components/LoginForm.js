@@ -40,10 +40,10 @@ export const LoginForm = ()=>{
           ({values, handleSubmit})=>           
           <Container>            
             <Form onSubmit={handleSubmit}>
-              <div className="row d-flex flex-column mb-2 col-sm-6 mx-auto">              
-              <Field className="mt-2 border rounded" name="email" value={values.email} type="email" placeholder="email" />
+              <div className="row d-flex flex-column mb-2 col-sm-6 col-md-4 mx-auto">              
+              <Field className="mt-2 border rounded py-2" name="email" value={values.email} type="email" placeholder="email" />
               <ErrorMessage name='email' >{msg => <div className='alert-danger'>{msg}</div>}</ErrorMessage>
-              <Field className="mt-2 border rounded" name="password" value={values.password} type="password" placeholder="password" />
+              <Field className="mt-2 border rounded py-2" name="password" value={values.password} type="password" placeholder="password" />
               <ErrorMessage name='password' >{msg => <div className='alert-danger'>{msg}</div>}</ErrorMessage>                      
               </div> 
               <Button className="row d-flex mb-2 col-sm-6 mx-auto text-center" size="sm" variant="primary" type="submit">
@@ -52,7 +52,6 @@ export const LoginForm = ()=>{
             </Form>  
           </Container>
         }
-
       </Formik>
       <ToastContainer/>
     </div>

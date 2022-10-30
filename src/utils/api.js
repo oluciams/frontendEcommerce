@@ -1,26 +1,23 @@
 import axios from "axios";
 
 export const loginApi = axios.create({
-    baseURL: 'http://localhost:3001',
-    //baseURL: process.env.REACT_APP_API_URL,
+    // baseURL: 'http://localhost:3001',
+    baseURL: process.env.REACT_APP_API_URL,
     timeout: 5000,
 });
 
-export const productsApi= axios.create({
-    baseURL: 'http://localhost:3001',    
-    //baseURL: process.env.REACT_APP_API_URL,
+export const productsApi= axios.create({        
+    baseURL: process.env.REACT_APP_API_URL,
     timeout:5000
 })
 
-export const signupApi= axios.create({
-    baseURL: 'http://localhost:3001',
-    //baseURL: process.env.REACT_APP_API_URL,
+export const signupApi= axios.create({   
+    baseURL: process.env.REACT_APP_API_URL,
     timeout:5000
 })
 
-export const cloudinaryApi= axios.create({    
-    baseURL: 'http://localhost:3001',   
-    //baseURL: process.env.REACT_APP_API_URL,
+export const cloudinaryApi= axios.create({      
+    baseURL: process.env.REACT_APP_API_URL,
     timeout:2000
 })
 

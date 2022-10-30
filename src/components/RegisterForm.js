@@ -37,18 +37,18 @@ export const RegisterForm = ()=>{
           ({values, handleSubmit})=>           
           <Container>            
             <Form onSubmit={handleSubmit}>
-              <div className="row d-flex flex-column mb-2 col-sm-6 mx-auto">
-              <Field className="border rounded" name="name" value={values.name} type="text" placeholder="enter name" />
+              <div className="row d-flex flex-column mb-2 col-sm-6 col-md-4mx-auto">
+              <Field className="border rounded py-2" name="name" value={values.name} type="text" placeholder="enter name" />
               <ErrorMessage name='name' >{msg => <div className='alert-danger col-ms'>{msg}</div>}</ErrorMessage>                          
-              <Field className="mt-2 border rounded" name="lastname" value={values.lastname} type="text" placeholder="enter lastname" />
+              <Field className="mt-2 border rounded py-2" name="lastname" value={values.lastname} type="text" placeholder="enter lastname" />
               <ErrorMessage name='lastname' >{msg => <div className='alert-danger'>{msg}</div>}</ErrorMessage>
-              <Field className="mt-2 border rounded" name="email" value={values.email} type="email" placeholder="email" />
+              <Field className="mt-2 border rounded py-2" name="email" value={values.email} type="email" placeholder="email" />
               <ErrorMessage name='email' >{msg => <div className='alert-danger'>{msg}</div>}</ErrorMessage>
-              <Field className="mt-2 border rounded" name="password" value={values.password} type="password" placeholder="password" />
+              <Field className="mt-2 border rounded py-2" name="password" value={values.password} type="password" placeholder="password" />
               <ErrorMessage name='password' >{msg => <div className='alert-danger'>{msg}</div>}</ErrorMessage>
-              <Field className="mt-2 border rounded" name="confirmationPassword" value={values.confirmationPassword} type="password" placeholder="confirmation password" />
+              <Field className="mt-2 border rounded py-2" name="confirmationPassword" value={values.confirmationPassword} type="password" placeholder="confirmation password" />
               <ErrorMessage name='confirmationPassword' >{msg => <div className='alert-danger'>{msg}</div>}</ErrorMessage>
-              <Field className="mt-2 border rounded" name="profilePicture" value={values.profilePicture} type="text" placeholder="profile picture"/> 
+              <Field className="mt-2 border rounded py-2 d-none" name="profilePicture" value={values.profilePicture} type="text" placeholder="profile picture"/> 
               <ErrorMessage name='profilePicture' >{msg => <div className='alert-danger'>{msg}</div>}</ErrorMessage>             
               </div> 
               <Button className="row d-flex mb-2 col-sm-6 mx-auto text-center" size="sm" variant="primary" type="submit">
@@ -57,7 +57,6 @@ export const RegisterForm = ()=>{
             </Form>  
           </Container>
         }
-
       </Formik>
       <ToastContainer/>
     </div>
