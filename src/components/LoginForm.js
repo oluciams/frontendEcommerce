@@ -46,7 +46,7 @@ export const LoginForm = ()=>{
               <Field className="mt-2 border rounded py-2" name="password" value={values.password} type="password" placeholder="password" />
               <ErrorMessage name='password' >{msg => <div className='alert-danger'>{msg}</div>}</ErrorMessage>                      
               </div> 
-              <Button className="row d-flex mb-2 col-sm-6 mx-auto text-center" size="sm" variant="primary" type="submit">
+              <Button className="row d-flex mb-2 col-sm-6 col-md-4 mx-auto text-center" size="sm" variant="primary" type="submit">
                 <span>Login</span>
               </Button>
             </Form>  

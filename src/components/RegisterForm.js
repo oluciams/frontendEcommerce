@@ -37,7 +37,7 @@ export const RegisterForm = ()=>{
           ({values, handleSubmit})=>           
           <Container>            
             <Form onSubmit={handleSubmit}>
-              <div className="row d-flex flex-column mb-2 col-sm-6 col-md-4mx-auto">
+              <div className="row d-flex flex-column mb-2 col-sm-6 col-md-4 mx-auto">
               <Field className="border rounded py-2" name="name" value={values.name} type="text" placeholder="enter name" />
               <ErrorMessage name='name' >{msg => <div className='alert-danger col-ms'>{msg}</div>}</ErrorMessage>                          
               <Field className="mt-2 border rounded py-2" name="lastname" value={values.lastname} type="text" placeholder="enter lastname" />
@@ -51,7 +51,7 @@ export const RegisterForm = ()=>{
               <Field className="mt-2 border rounded py-2 d-none" name="profilePicture" value={values.profilePicture} type="text" placeholder="profile picture"/> 
               <ErrorMessage name='profilePicture' >{msg => <div className='alert-danger'>{msg}</div>}</ErrorMessage>             
               </div> 
-              <Button className="row d-flex mb-2 col-sm-6 mx-auto text-center" size="sm" variant="primary" type="submit">
+              <Button className="row d-flex mb-2 col-sm-6 col-md-4 mx-auto text-center" size="sm" variant="primary" type="submit">
                 <span>Sign Up</span>
               </Button>
             </Form>  
