@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import {productsApi, cloudinaryApi} from '../utils/api'
+import { productsApi } from '../utils/api'
 import { AuthContext } from './AuthContextProvider'
 import { notify } from '../utils/notify'
 
@@ -29,30 +29,9 @@ export const ProductsContextProvider = ({children})=>{
     const {data} = await productsApi.get('/categories')
     setCategories(data)      
   }
-
-  const deleteImage= async(image_id) => {
-    await cloudinaryApi.delete(`/api/images/${image_id}`)    
-  }
-  
-  function uploadImage (base64EncodedImage) {
-    return new Promise ((resolve, reject) => {
-
-    fetch('http://localhost:3001/api/upload', {
-        method: 'POST',
-        body: JSON.stringify({ data: base64EncodedImage }),
-        headers: { 'Content-Type': 'application/json' },
-    })
-    .then((response) => response.json())
-    .then((data) => resolve (data.public_id))
-    })
-           
-  }
   
   const createProduct = async(product)=>{    
-    try {
-      console.log ("loading before", dataLoading)
-     // setDataLoading(true)
-      
+    try {  
       const {data} = await productsApi.post('/products', product, {
         headers: {
           'authorization': userToken 
@@ -61,20 +40,16 @@ export const ProductsContextProvider = ({children})=>{
 
       setProducts([...products, data])      
       notify("Product created", true)      
-      setDataLoading(false)                
-      console.log ("loading after", dataLoading)
-    } catch (err) {        
-        deleteImage(product.image) 
+      setDataLoading(false)  
+    } catch (err) {      
         err.response.data.code ===11000 ? notify('Title repeated', false)
           : notify(err.response.statusText, false)          
         setDataLoading(false) 
    }
   }
 
-  const deleteProduct = async (id, image_id)=>{
-    try {      
-      await deleteImage(image_id);  
-
+  const deleteProduct = async (id)=>{
+    try {
       const newProducts = await products.filter((product)=> product._id !== id)
       setProducts(newProducts)
   
@@ -89,7 +64,6 @@ export const ProductsContextProvider = ({children})=>{
       fetchData()     
     }   
   }
-
   const updateProduct = async(
   id,{
   title: titleEdited,
@@ -145,8 +119,7 @@ export const ProductsContextProvider = ({children})=>{
     dataLoading,     
     createProduct,
     deleteProduct,
-    updateProduct,
-    uploadImage,
+    updateProduct, 
     changeDataLoading
   }
 
