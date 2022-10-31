@@ -5,7 +5,7 @@ import {CreateProductFormView} from '../components/CreateProductFormView';
 
 export const CreateProductFormContainer = ({product})=>{
 
-  const {createProduct, updateProduct, dataLoading, changeDataLoading, uploadImage} =useContext(ProductsContext)
+  const { createProduct, updateProduct, dataLoading } =useContext(ProductsContext)
 
   // Product States
   const [title, setTitle] = useState('');
@@ -15,33 +15,7 @@ export const CreateProductFormContainer = ({product})=>{
   const [image, setImage] = useState('');
   const [quantity, setQuantity] = useState('');
   const [editMode, setEditMode] = useState(false);
-  const [errors, setErrors] = useState('');
-
-
-  
-
-  // Image States
-  const [fileInputState, setFileInputState] = useState('');
-  const [previewSource, setPreviewSource] = useState('');
-  const [selectedFile, setSelectedFile] = useState(''); // imagen desde el formulario
-
-  // Image  logic
-
-  const handleFileInputChange = (e) => {
-      const file = e.target.files[0];
-      previewFile(file);
-      setSelectedFile(file);
-      setFileInputState(e.target.value);
-      imageValidator()
-  };
-
-  const previewFile = (file) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onloadend = () => {
-          setPreviewSource(reader.result);           
-      };      
-  };
+  const [errors, setErrors] = useState(''); 
 
   // Product Logic
   
@@ -120,21 +94,6 @@ export const CreateProductFormContainer = ({product})=>{
     }
   };
 
-  const imageValidator = () => {
-    if (!fileInputState) {
-      setErrors({
-        ...errors,
-        image: true,
-        imageErrorMessage: 'is required',
-      });
-    } else {
-      setErrors({
-        ...errors,
-        image: false,
-      });
-    }
-  };
-
   const handleTitle= (e)=>{
     const validtitle = e.target.value
     setTitle(validtitle)
@@ -172,26 +131,9 @@ export const CreateProductFormContainer = ({product})=>{
     setDescription('')
     setPrice('')   
     setCategory('')	
-    setQuantity('')
-    setFileInputState('')
-    setPreviewSource('')
+    setQuantity('') 
     setEditMode(false)
   }
-
-  function convertImageTo64 (selectedFile){
-    return new Promise ((resolve, reject) => {
-     
-      const reader = new FileReader();
-      reader.readAsDataURL(selectedFile);  
-      reader.onloadend = async() => {  
-        //console.log(reader.result)      
-        resolve(reader.result) 
-      };
-      reader.onerror = () => {        
-        reject(console.error('Something went wrong! into convertImageTo64') )           
-      }; 
-    })
-  };
   
   // Submit for images and products
 
@@ -201,52 +143,21 @@ export const CreateProductFormContainer = ({product})=>{
     // Product
     if (title && description && price && category && quantity ) {
 
-      if(editMode){ 
-
-        if (selectedFile){
-
-          async function waitUploadImageAndUpdateProduct(){  
-            changeDataLoading()       
-            let base64EncodedImage = await convertImageTo64(selectedFile)  
-            let imagePublicId = await uploadImage(base64EncodedImage)
-            
-            updateProduct(product._id, ({        
-              title, description, price, categoryId: category, quantity, image: imagePublicId }))          
-            setEditMode(false)
-          };
-  
-          waitUploadImageAndUpdateProduct()           
-           
-        } else {
+      if(editMode){     
           updateProduct(product._id, ({        
             title, description, price, categoryId: category, quantity, image }))          
           setEditMode(false)
-        }
-                
-      } else { 
-        
-        if (!selectedFile) return;
-
-        async function waitImageEncodeAndCreateProduct(){ 
-          changeDataLoading()
-          let base64EncodedImage = await convertImageTo64(selectedFile)
-          let imagePublicId = await uploadImage(base64EncodedImage)          
-          createProduct({title, description, price, categoryId: category, quantity, image: imagePublicId})   
-        };
-        
-        waitImageEncodeAndCreateProduct()
-            
-      }      
+      } else {
+        createProduct({title, description, price, categoryId: category, quantity, image})   
+      };       
+          
+    };
     
     setTitle('');
     setDescription('');
     setPrice('');   
     setCategory('')	
     setQuantity('')
-    setFileInputState('');
-    setPreviewSource('');
-
-    };
   } 
 
   useEffect(() => {
@@ -292,11 +203,7 @@ export const CreateProductFormContainer = ({product})=>{
             handleCategory={handleCategory}
             categoryValidator={categoryValidator}
             handleQuantity={handleQuantity}
-            quantityValidator={quantityValidator}
-            handleFileInputChange={handleFileInputChange}            
-            fileInputState={fileInputState}
-            previewSource={previewSource}
-            imageValidator={imageValidator}
+            quantityValidator={quantityValidator}          
             handleCancel={handleCancel}   
         />          
   )
